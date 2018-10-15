@@ -5,7 +5,7 @@
 
 ## Data Analytics
 
-* [Untitled](data-analytics/untitled.md)
+* [Multiple Linear Regression with R](data-analytics/untitled.md)
 
 ## Web Development
 
