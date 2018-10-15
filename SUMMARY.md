@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Initial page](README.md)
+* [Welcome](README.md)
 * [This is 1st page after the initial page](this-is-1st-page-after-the-initial-page.md)
 
 ## Data Analytics

@@ -1,4 +1,4 @@
-# Initial page
+# Welcome
 
 ## This is the first page
 
