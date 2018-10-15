@@ -1,11 +1,11 @@
 # Table of contents
 
 * [Welcome](README.md)
-* [This is 1st page after the initial page](this-is-1st-page-after-the-initial-page.md)
+* [This is 1st page after the initial page](welcome.md)
 
 ## Data Analytics
 
-* [Multiple Linear Regression with R](data-analytics/untitled.md)
+* [Multiple Linear Regression with R](data-analytics/lm01.md)
 
 ## Web Development
 
