@@ -21,5 +21,7 @@ Market = Sold in USA or outside USA
 
 Your goal is to analyze the data with R using Multiple Linear Regression methods and choose the best model to explain the differences in advertising costs between the different titles and then to predict what Sam should be able to charge for the advertisements in the new magazine.
 
-
-
+## Steps
+### Data Exploration
+##### Histogram
+![Histogram of Circulation variable](../resources/LM01/images/hist_circulation.png)
