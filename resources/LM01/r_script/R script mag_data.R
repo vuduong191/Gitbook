@@ -1,17 +1,19 @@
+#required packages - make sure you install them first
+install.packages("car")
+# for vif testing
+install.packages("lmtest")
+# for Durbin Watson test
+
 mag_data <- read.csv("MagazineAds.csv")
 sum(is.na(mag_data))
 #import data
 head(mag_data)
 str(mag_data)
-domestic <- as.numeric(as.numeric(mag_data$Market)==1)
+mag_data$domestic <- as.numeric(as.numeric(mag_data$Market)==1)
 #create a new dummy variable to describe Market variable
 mag_data1 <- mag_data[,c(-1,-6)]
 #remove the col with magazine name and the Market columns
-mag_data1$domestic <- domestic
-#add the dummy varible into the data frame
 
-newdata<-data.frame(circ=1800,percmale = 60,medianincome = 80000,domestic = 0)
-#create the data for Dr. Sam's magazine. Popular Statistics,  for prediction
 for (i in 1:5){
   histi <- hist(mag_data1[,i], plot=FALSE)
   histi$density <-histi$counts/sum(histi$counts)*100
@@ -28,7 +30,7 @@ round(cor(mag_data1),2)
 #correlation table with 2 decimal rounding
 M1 = lm(pagecost~.,data = mag_data1)
 summary(M1)
-#install.packages("car") for vif testing
+
 library(car)
 vif(M1)
 
@@ -37,6 +39,7 @@ plot(res_data1, type = "l")
 abline(h=0,col="red")
 qqnorm(res_data1)
 qqline(res_data1, col = "red")
+shapiro.test(res_data1)
 predicted_data1 <-predict(M1)
 plot(predicted_data1,res_data1)
 abline(h=0,col="red")
@@ -44,10 +47,11 @@ install.packages("lmtest")
 library(lmtest)
 dwtest(M1)
 acf(res_data1)
-shapiro.test(res_data1)
-#Evaluate the required conditions: linearity, Homoscedasticity, Independence and normality only  
+
+newdata<-data.frame(circ=1800,percmale = 60,medianincome = 80000,domestic = 0)
+#create the data for Dr. Sam's magazine. Popular Statistics,  for prediction
 predict(M1,newdata = newdata, se.fit = TRUE, interval = "confidence")
-#Preidict the pagecost and the prediction interval
+#Predict the pagecost and the prediction interval
 mag_data2 <- mag_data1
 mag_data2$pagecost <-log(mag_data2$pagecost)
 colnames(mag_data2)[1] <-"ln.pagecost"
@@ -72,9 +76,10 @@ abline(h=0,col="red")
 dwtest(M2)
 acf(res_data2)
 shapiro.test(res_data2)
-#data normally distributed
-
 #Evaluate the required conditions: linearity, Homoscedasticity, Independence and normality only  
+
+plot(mag_data2)
+
 mag_data3 <- mag_data2
 mag_data3$circ <-log(mag_data3$circ)
 head(mag_data3)
@@ -151,14 +156,14 @@ removeoutlier(mag_data4)
 
 mag_data5<-mag_data4
 mag_data5$sqr.permale <-mag_data5$percmale*mag_data5$percmale 
-removeoutlier(mag_data5)
 #check what the r-square would be after removing outliers
+removeoutlier(mag_data5)
+
 mag_data6<-mag_data5[,-c(6,7)]
 #removing insignificant variables
 head(mag_data6)
-removeoutlier(mag_data6)
 M6<-lm(ln.pagecost~.,data=mag_data6)
-#check what the r-square would be after removing outliers
+#Final Model
 plot(resid(M6))
 abline(h=0,col="red")
 
