@@ -6,6 +6,7 @@
 ## Data Analytics
 
 * [Multiple Linear Regression with R](data-analytics/lm01.md)
+* [Time Series Forecast](data-analytics/time-series-forecast.md)
 
 ## Web Development
 
