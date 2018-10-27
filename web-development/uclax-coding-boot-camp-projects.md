@@ -4,6 +4,8 @@ description: All the projects I have done in the boot camp
 
 # UCLAx Coding Boot Camp Projects
 
+I started to study in UCLAx Coding Boot Camp in August 2018. I realized the process of problem solving, logically thinking, creative thinking, designing and playing with color is a huge interest of mine. In all of these projects, I (We) had to build everything from scratch. The requirement for these projects is mainly making everything run smoothly, but I spent extra hours to invest in the colors and shapes. These deliverables are not up to a perfect level, and there's room for improvements. However, due to my tight schedule, I stopped myself at some points and moved to a new project.
+
 ### Hang Man 80's Style
 ![Hang Man 80's Style](https://lh3.googleusercontent.com/uKg_vMHOon5gg6yE4nX-Cj91f08c2AenSQdGSmLqMsjbbDInsftA9FF5fhlf4j4MYZ6UIwQOOW7XFWl1X1RXSvYG7Zjyrmq9hU6duLka5MGHuGUpzOCLKKN803or2-Y1aYA-gLcG2w=w400)
 
