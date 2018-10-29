@@ -11,7 +11,7 @@ description:
 
 All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/R01)
 
-A lot of times, we have to import data from Excel and make it ready for analysis. Very often, the cleaning step takes a lot more time than the analysis itself. The data structure in Excel with high level of complexity is very helpful for reading the spreadsheet, but it makes life harder when it comes to cleaning and organizing. This case is a good practice to get myself familiar to this kind of problem.
+A lot of times, we have to import data from Excel and make it ready for analysis. Very often, the cleaning step takes a lot more time than the analysis itself. The data structure in Excel with high level of complexity is very helpful for reading the spreadsheet, but it makes life harder when it comes to cleaning and organizing. This short case is a good practice to get myself familiar to this kind of problem.
 
 ### Import Data
 
@@ -53,8 +53,8 @@ A lot of times, we have to import data from Excel and make it ready for analysis
 ```
 When you're importing a messy spreadsheet into R, it's good practice to compare the original spreadsheet with what you've imported. By comparing with the screenshot, I have these observations:
 * The data is surely messy
-* read_xls() function actually imported the first row of the original data frame as the variable name, and that's not what you want
-* The names of variable have to be added manually
+* read_xls() function actually imported the first row of the original data frame as the variable name, and that's not what you want in this case
+* The names of variables have to be added manually
 * Many rows and columns contain useless or missing data
 
 ### Cleaning
@@ -119,5 +119,8 @@ Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	52 obs. of  5 variables:
  $ avg_hr_per_day: num  6.64 7.03 6.48 6.43 6.89 ...
  $ avg_day_per_yr: num  180 180 180 181 179 181 171 181 181 181 ...
  $ avg_hr_per_yr : num  1193 1267 1163 1159 1229 ...
+> # You can actually use sapply to do this
+> # cols<-c(2:ncol(att4))
+> # att5[, cols] <- sapply(att4[,cols],as.numeric)
 ```
 And now the data is good for analysis.
