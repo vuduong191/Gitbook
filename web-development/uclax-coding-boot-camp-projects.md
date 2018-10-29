@@ -54,5 +54,5 @@ This is a group project, where we got to know the tremendous possibility of API.
 
 [Index](https://vuduong191.github.io/yourfavoritegifs/) \| [Github Repo](https://github.com/vuduong191/yourfavoritegifs)
 
-This is a homework for week 6, where we learned local storage, that is built into a web browser to store data of the user. The data will persist on the local computer as long as you don’t clear the cache. In this project, we use Giphy API to display gifs that relate to an emotion.
+This is a homework for week 6, when we learned local storage, which is built into a web browser to store data of the user. The data will persist on the local computer as long as you don’t clear the cache. In this project, we use Giphy API to display gifs that relate to an emotion. Users can save their favorite gifs for later references.
 
