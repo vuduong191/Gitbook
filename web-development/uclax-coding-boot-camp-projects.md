@@ -6,7 +6,7 @@ description: All the projects I have done in the boot camp
 
 ![](https://media.giphy.com/media/zOvBKUUEERdNm/giphy.gif)
 
-I started to study in UCLAx Coding Boot Camp in August 2018. I realized the process of problem solving, logically thinking, creative thinking, designing and playing with color is a huge interest of mine. In all of these projects, I \(We\) had to build everything from scratch. The requirement for these projects is mainly making everything run smoothly, but I spent extra hours to invest in the colors and shapes. These deliverables are not up to a perfect level, and there's room for improvements. However, due to my tight schedule, I stopped myself at some points and moved to a new project.
+I started to study in UCLAx Coding Boot Camp in August 2018. I realized the process of problem solving, logically thinking, creative thinking, designing and playing with color is a huge interest of mine. In all of these projects, I \(We\) had to build everything from scratch. The instructions are in markdown format. The requirement for these projects is mainly making everything run smoothly, but I spent extra hours to invest in the colors and shapes. These deliverable is not up to a perfect level, and there's room for improvements for sure. However, due to my tight schedule, I stopped myself at some points and moved to a new project. 
 
 ## Hang Man 80's Style
 

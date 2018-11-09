@@ -7,6 +7,7 @@
 * [Multiple Linear Regression with R](data-analytics/lm01.md)
 * [Time Series Forecasting with Excel and R](data-analytics/ts01.md)
 * [Cleaning Data in R, Average daily attendance \(ADA\) USA](data-analytics/cleaning-data-in-r-average-daily-attendance-ada-usa.md)
+* [Clone Instagram using Node JS and MySQL](data-analytics/clone-instagram-using-node-js-and-mysql.md)
 
 ## Web Development
 
