@@ -15,7 +15,7 @@ I am aware that MySQL is not the best choice to create something like this app. 
 
 **However, here is the screenshot.**
 
-![Screenshot](../resources/SQ01/images/overall.gif)
+![Screenshot](https://lh3.googleusercontent.com/pLEWyWisvTzCnJ7jaHaYCzEIJ751N6qnHCb9je6AHowQhLJFfc4e-OII038DrPH84BDGot7eHk5N1YoJfbbYUuEyWU1Gif4Fsjvc_MCF8Ur7-jrPxgNi5_Fv446Tjxrbi5ec6oVGMA=w2400)
 
 ### First, Data Schema
 
@@ -144,4 +144,4 @@ WHERE photos.id IS NULL;
 
 Before, I had a baby rhino picture with the most likes. I will add a photo of Jennifer Aniston that has more likes. I like rhino, and it deserves awareness, but here is Jennifer Aniston.
 
-![Left Column](../resources/SQ01/images/insert_data.gif)
+![New data](https://lh3.googleusercontent.com/03Bv14WEa-1gyDqq3yfpm7KwXt6U9S1Hy0Kk0MPBzbohuL9r40Oe8DHuadOsLN9M7sA3XnyKRBwa7fmLp6iW2IDClV9P-HHQoc7b58nNG6yILEDyT4kMFdWh0GiQ0dZZV2fD8xnrqQ=w2400)
