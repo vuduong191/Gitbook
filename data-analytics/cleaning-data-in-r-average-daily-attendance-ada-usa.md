@@ -1,5 +1,5 @@
 ---
-description: 
+description: >-
   This is a case in Importing & Cleaning Data in R course of DataCamp. The
   course has its own solution, but I made some adjustments to make the solution
   scalable.
@@ -7,13 +7,13 @@ description:
 
 # Cleaning Data in R, Average daily attendance \(ADA\) USA
 
-![Data screenshot](../resources/R01/images/screenshot.PNG)
+![Data screenshot](../.gitbook/assets/screenshot.PNG)
 
 All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/R01)
 
 A lot of times, we have to import data from Excel and make it ready for analysis. Very often, the cleaning step takes a lot more time than the analysis itself. The data structure in Excel with high level of complexity is very helpful for reading the spreadsheet, but it makes life harder when it comes to cleaning and organizing. This short case is a good practice to get myself familiar to this kind of problem.
 
-### Import Data
+## Import Data
 
 ```r
 > att <- read_xls("attendance.xls")
@@ -49,15 +49,17 @@ A lot of times, we have to import data from Excel and make it ready for analysis
  7 †Not applicable.        NA     NA     NA     NA      NA    NA     NA     NA    NA     NA     NA     NA      NA     NA     NA    NA   
  8 ‡Reporting standards n~ NA     NA     NA     NA      NA    NA     NA     NA    NA     NA     NA     NA      NA     NA     NA    NA   
  9 NOTE: Averages reflect~ NA     NA     NA     NA      NA    NA     NA     NA    NA     NA     NA     NA      NA     NA     NA    NA   
-10 "SOURCE: U.S. Departme~ NA     NA     NA     NA      NA    NA     NA     NA    NA     NA     NA     NA      NA     NA     NA    NA   
+10 "SOURCE: U.S. Departme~ NA     NA     NA     NA      NA    NA     NA     NA    NA     NA     NA     NA      NA     NA     NA    NA
 ```
+
 When you're importing a messy spreadsheet into R, it's good practice to compare the original spreadsheet with what you've imported. By comparing with the screenshot, I have these observations:
+
 * The data is surely messy
-* read_xls() function actually imported the first row of the original data frame as the variable name, and that's not what you want in this case
+* read\_xls\(\) function actually imported the first row of the original data frame as the variable name, and that's not what you want in this case
 * The names of variables have to be added manually
 * Many rows and columns contain useless or missing data
 
-### Cleaning
+## Cleaning
 
 I first removed rows with NA values, and columns with useless data. I also assigned names to varibles.
 
@@ -83,16 +85,17 @@ I first removed rows with NA values, and columns with useless data. I also assig
 5 Arkansas ~ 91.82711100000~ 6.885419999999~ 179            1228.888099999~ 92.09320099999~ 6.93215999999~ 90.8119520000~ 6.76750800000~
 6 Californi~ 93.24101699999~ 6.24064         181            1128.769399999~ 94.931421       6.28974499999~ 89.3608569999~ 6.14261500000~
 ```
-I also noticed that state names are all stored as the same number of characters, with periods padding the ends of the shorter states. This technique is helpful in many cases, but here, we need to get rid of it by removing all dot (.) in the state names.
+
+I also noticed that state names are all stored as the same number of characters, with periods padding the ends of the shorter states. This technique is helpful in many cases, but here, we need to get rid of it by removing all dot \(.\) in the state names.
 
 ```r
 > att2$state<-str_replace_all(att2$state,"\\.","")
 > att2$state <-str_trim(att2$state)
 > head(att2$state)
-[1] "United States" "Alabama"       "Alaska"        "Arizona"       "Arkansas"      "California"   
+[1] "United States" "Alabama"       "Alaska"        "Arizona"       "Arkansas"      "California"
 ```
 
-Make sure you apply names before you run str_replace_all function, because if you call str_replace_all on att2[1], instead of att2$state, things will be messy. att2[1] is a dataframe, while att2$state is a vector.
+Make sure you apply names before you run str\_replace\_all function, because if you call str\_replace\_all on att2\[1\], instead of att2$state, things will be messy. att2\[1\] is a dataframe, while att2$state is a vector.
 
 In many cases, a single data frame stores multiple "tables" of information. In this data frame, columns 1, 6, and 7 represent attendance data for US elementary schools, columns 1, 8, and 9 represent data for secondary schools, and columns 1 through 5 represent data for all schools in the US.
 
@@ -108,12 +111,13 @@ att_sec <- att2[,c(1,8,9)]
 # Subset all schools: att4
 att4 <- att2[,1:5]
 ```
+
 It's also noticeable that numerical data has come in as character strings. I can think of two ways to coerce strings into numbers.
 
 ```r
 > att4 <- mutate_at(att4, vars(-state), funs(as.numeric))
 > str(att4)
-Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	52 obs. of  5 variables:
+Classes ‘tbl_df’, ‘tbl’ and 'data.frame':    52 obs. of  5 variables:
  $ state         : chr  "United States" "Alabama" "Alaska" "Arizona" ...
  $ avg_attend_pct: num  93.1 93.8 89.9 89 91.8 ...
  $ avg_hr_per_day: num  6.64 7.03 6.48 6.43 6.89 ...
@@ -123,4 +127,6 @@ Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	52 obs. of  5 variables:
 > # cols<-c(2:ncol(att4))
 > # att5[, cols] <- sapply(att4[,cols],as.numeric)
 ```
+
 And now the data is good for analysis.
+

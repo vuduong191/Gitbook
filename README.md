@@ -1,6 +1,6 @@
 # Welcome
 
-This site contains some of the projects I did in my journey of exploring Machine Learning, Data Analytics, and Coding.
+This site contains some of the projects I did in my journey of exploring Machine Learning, Data Analytics, and  Web Development Coding and stuffs.
 
 ![](https://media.giphy.com/media/NouHmynru3nXO/giphy.gif)
 
