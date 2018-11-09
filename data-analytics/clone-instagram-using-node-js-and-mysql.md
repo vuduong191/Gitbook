@@ -23,7 +23,7 @@ I am aware that MySQL is not the best choice to create something like this app. 
 
 This schema is kindda straighforward, but credit belongs to Colt Steele anyway.
 
-In this file - [fake\_instagram\_dataset.sql](https://github.com/vuduong191/Gitbook/tree/master/resources/SQ01/fake_instagram_dataset.sql), you can find the SQL syntax to create all tables, and data for those tables. This again belongs to Colt Steele. But I created an [app](https://github.com/vuduong191/Gitbook/tree/master/resources/SQ01/data_generating_app.js) that adds real image URLs and some fake emails, using faker module. You need to run this after creating all the tables above to have a complete database.
+In this file - [fake\_instagram\_dataset.sql](https://github.com/vuduong191/Gitbook/tree/master/resources/SQ01/fake_instagram_dataset.sql), you can find the SQL syntax to create all tables and data for those tables. This again belongs to Colt Steele. But I created an [app](https://github.com/vuduong191/Gitbook/tree/master/resources/SQ01/data_generating_app.js) that adds real image URLs and some fake emails, using faker module. You need to run this after creating all the tables above to have a complete database.
 
 ## Masonry-like Photo Columns
 
@@ -65,7 +65,7 @@ for (var i=0;i<results[3].length;i++){
 
 ![Left Column](../.gitbook/assets/left_col.png)
 
-To populate all the entries for each variable, I use this in the EJS file. users and tagslist are variable that contain data read from MySQL queries.
+To populate all the entries for each variable, I use this in the EJS file. users and tagslist are variables that contain data read from MySQL queries.
 
 ```javascript
 <label for="comment_user_id">Who commented on this photo</label>    
