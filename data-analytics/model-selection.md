@@ -1,12 +1,10 @@
-# Model Selection
+# Model Selection in R
 
 ![Cover](../.gitbook/assets/college.gif)
 
 _This image may not relate to this project at all. Source:_ [http://www.koreatimesus.com](http://www.koreatimesus.com)_._ All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/MS01)
 
-> This is a homework assignment in DSO\_530 Applied Modern Statistical Learning Methods class by professor Robertas Gabrys, USC. I completed this project with two other classmates He Liu and Kurshal Bhatia
-
----
+> This is a homework assignment in DSO\_530 Applied Modern Statistical Learning Methods class by professor Robertas Gabrys, USC. I completed this project with two other classmates He Liu and Kurshal Bhatia. In this assignment, we practice Linear Model Selection and Regularization. We got to know Subset Selection, Shrinkage Methods and Dimension Reduction Regression
 
 ## Prompt
 
@@ -34,7 +32,9 @@ Expend = Instructional expenditure per student
 Grad.Rate = Graduation rate
 ```
 
-Objective of the analysis: build a predictive model to predict the number of applications received using given features in the College data set.
+Objective of the analysis: build a predictive model to predict the number of applications received using given features in the College data set. 
+
+We will use several models and compare their predictive accuracy.
 
 ## Prepare Data
 
@@ -262,7 +262,7 @@ M.linear.y.hat=predict(M.linear,x.test)
 rmse_comparison[4]<-RMSE(y=y.test,y.hat=M.linear.y.hat)
 ```
 
- **There are two potential problems with this OLS regression when we include all explanatory variables:** 1. Prediction Accuracy: When n \(number of observations\) ~ p \(number of predictors\), the least square fit can have high variance and may result in over fitting and poor estimates on unseen observations. And, when n &lt; p, then the variability of the least squares fit increases dramatically, and the variance of these estimates is infinite. 2. Model Interpretability: When we have a large number of variables X in the model, there will generally be many that have little or no effect on Y, which makes it harder to see the big picture or recognize the effect of "important variables"
+**There are two potential problems with this OLS regression when we include all explanatory variables:** 1. Prediction Accuracy: When n \(number of observations\) ~ p \(number of predictors\), the least square fit can have high variance and may result in over fitting and poor estimates on unseen observations. And, when n &lt; p, then the variability of the least squares fit increases dramatically, and the variance of these estimates is infinite. 2. Model Interpretability: When we have a large number of variables X in the model, there will generally be many that have little or no effect on Y, which makes it harder to see the big picture or recognize the effect of "important variables"
 
 \*\* A solution for this is Subset Selection, which is done at the begining of this post. We will include some more solutions below."
 

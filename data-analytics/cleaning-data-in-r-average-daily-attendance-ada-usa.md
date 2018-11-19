@@ -13,8 +13,6 @@ All images, data and R Script can be found [here](https://github.com/vuduong191/
 
 > This is a case in Importing & Cleaning Data in R course of DataCamp. The course has its own solution, but I made some adjustments to make the solution scalable.
 
----
-
 A lot of times, we have to import data from Excel and make it ready for analysis. Very often, the cleaning step takes a lot more time than the analysis itself. The data structure in Excel with high level of complexity is very helpful for reading the spreadsheet, but it makes life harder when it comes to cleaning and organizing. This short case is a good practice to get myself familiar to this kind of problem.
 
 ## Import Data
