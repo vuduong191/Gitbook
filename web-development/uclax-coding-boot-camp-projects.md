@@ -56,3 +56,19 @@ This is a group project, where we got to know the tremendous possibility of API.
 
 This is a homework for week 6, when we learned local storage, which is built into a web browser to store data of the user. The data will persist on the local computer as long as you don’t clear the cache. In this project, we use Giphy API to display gifs that relate to an emotion. Users can save their favorite gifs for later references.
 
+
+## RPS Multiplayer
+
+![RPS Multiplayer](https://lh3.googleusercontent.com/imtwzsWJJzt8Hd4-n0pPxNhu1KKDGioSgqvCjJmTcSHlWTSYd3fWJV5BVbiQcaxWrehHc2rcoR2RFd5BKXNx64ralnyti_CKiXVUh5p2D9YLxeGt_cDCwKKl2dt9dlnwwIWlqdPytQ=w400)
+
+[Index](https://vuduong191.github.io/RPS-Multiplayer/) \| [Github Repo](https://github.com/vuduong191/RPS-Multiplayer)
+
+This is a homework for week 7, when we learned about Firebase Realtime Database. The Firebase Realtime Database is a cloud-hosted database. Data is stored as JSON and synchronized in realtime to every connected client. When you build cross-platform apps with our iOS, Android, and JavaScript SDKs, all of your clients share one Realtime Database instance and automatically receive updates with the newest data.
+
+## Liri Node Apps
+
+![Liri Node Apps](https://lh3.googleusercontent.com/VWiOlSuC5SLEP3amNBASxitjFFo5gEopSW0W0d-2JVHjJ_tvx3_sVNsZfpVOdv7NIb3C7IaZLY2peUKh89lBHbZ6Xe8xHBDoBrn-4OYbw7t97UO8j96lnjM9ir0N_jnXKv5f0bYu5Q=w400)
+
+[Readme file](https://vuduong191.github.io/liri-node-app-/readme.md) \| [Github Repo](https://github.com/vuduong191/liri-node-app-)
+
+This is a homework for week 10, when we learned about NodeJS. 
