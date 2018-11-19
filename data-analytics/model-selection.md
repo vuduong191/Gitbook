@@ -1,17 +1,16 @@
 # Model Selection
 
-![Cover](../resources/MS01/images/college.gif)
+![Cover](../.gitbook/assets/college.gif)
 
-_This image may not relate to this project at all. Source: http://www.koreatimesus.com._ All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/MS01)
+_This image may not relate to this project at all. Source:_ [http://www.koreatimesus.com](http://www.koreatimesus.com)_._ All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/MS01)
 
----
-###### This is a homwork in class
+> This is a homework assignment in DSO\_530 Applied Modern Statistical Learning Methods class by professor Robertas Gabrys, USC. I completed this project with two other classmates He Liu and Kurshal Bhatia
 
-### Prompt
-The data set was taken from the StatLib data repository which is administered and maintained at Carnegie Mellon University. The data set was used in the ASA Statistical Graphics Section's Data Analysis Exposition.
-This data set consists of 777 observations and 19 variables: 
+## Prompt
 
-```
+The data set was taken from the StatLib data repository which is administered and maintained at Carnegie Mellon University. The data set was used in the ASA Statistical Graphics Section's Data Analysis Exposition. This data set consists of 777 observations and 19 variables:
+
+```text
 College = Name of a university
 Private = A factor with levels No and Yes indicating private or public university
 Apps = Number of applications received
@@ -32,15 +31,18 @@ perc.alumni = Pct. alumni who donate
 Expend = Instructional expenditure per student
 Grad.Rate = Graduation rate
 ```
+
 Objective of the analysis: build a predictive model to predict the number of applications received using given features in the College data set.
 
+## Prepare Data
 
-### Prepare Data
 ```r
 college <-read.csv("college.csv")
 head(college)
 ```
+
 The first column is just the name of each university. We don’t really want R to treat this as data. However, it may be handy to have these names for later, so we use this data as names for rows.
+
 ```r
 rownames(college) <- college[,1]
 college <- college[,-1]
@@ -48,7 +50,7 @@ str(college)
 summary(college)
 ```
 
-![Summary](../resources/MS01/images/01_summary.PNG)
+![Summary](../.gitbook/assets/01_summary.PNG)
 
 We are going to divide universities into two groups based on whether or not the proportion of students coming from the top 10 % of their high school classes exceeds 50 %. The decision is recorded in a dummy variable called Elite.
 
@@ -62,6 +64,7 @@ college$Private= as.numeric(as.numeric(college$Private)==2)
 ```
 
 Let's create a training set and a testing set
+
 ```r
 set.seed(1)
 test_id<-sample(dim(college)[1],200)
@@ -78,26 +81,25 @@ To evaluate models predictive accuracy, we create functions for RMSE and MAPE fo
 ```r
 RMSE=function(y,y.hat) sqrt(mean((y-y.hat)^2))
 MAPE=function(y,y.hat) mean(abs((y-y.hat)/y))
-
 ```
 
 We also make an RMSE report table and a time consumtion report table for easy view and comparison.
 
 ```r
-
 time_consumed <-data.frame(NA,NA,NA,NA,NA,NA,NA,NA,NA)
 colnames(time_consumed) <- c("Sub_Ex", "Sub_For", "Sub_Back","Linear Reg","Ridge","Lasso","PCR","PLS","Elastic Net")
 rmse_comparison <-data.frame(NA,NA,NA,NA,NA,NA,NA,NA,NA)
 colnames(rmse_comparison) <- c("Sub_Ex", "Sub_For", "Sub_Back","Linear Reg","Ridge","Lasso","PCR","PLS","Elastic Net")
 ```
 
-### Best Subset regression 
+## Best Subset regression
 
 We will now use the package leaps to evaluate all the best-subset models. We try 3 subset selection approaches "exhaustive", "backward",and "forward".
 
-#### Exhaustive approach
+### Exhaustive approach
 
 We will wrap our code in a pair of time record to calculate the time consumption.
+
 ```r
 library(leaps)
 starting.time=Sys.time()
@@ -135,6 +137,7 @@ for (i in 1:3){
 }
 M.ex.accuracy
 ```
+
 The summary table is now like this:
 
 ```r
@@ -157,17 +160,18 @@ The summary table is now like this:
 15   959.4776      1302.273 ***  0.3470724     0.2644870      0.9600348     0.9696671  **
 16   959.2712   *  1303.679   *  0.3480086     0.2657612      0.9600524   * 0.9696123   *
 17   959.2130  **  1304.623      0.3475276     0.2676477      0.9600573  ** 0.9695919    
-18   959.2129 ***  1304.605      0.3475254     0.2676874      0.9600573 *** 0.9695929  
+18   959.2129 ***  1304.605      0.3475254     0.2676874      0.9600573 *** 0.9695929
 ```
 
 RMSE for testing set is min in 15 variable model.
+
 ```r
 which.min(M.ex.accuracy$Test.RMSE)
 ```
 
-We conduct the same procedure for other two approaches. 
+We conduct the same procedure for other two approaches.
 
-#### Forward approach
+### Forward approach
 
 ```r
 > M.for.accuracy
@@ -189,12 +193,12 @@ We conduct the same procedure for other two approaches.
 15   959.4776      1302.273  **  0.3470724     0.2644870   *  0.9600348     0.9696671   *
 16   959.2712   *  1303.679      0.3480086     0.2657612      0.9600524   * 0.9696123    
 17   959.2130  **  1304.623      0.3475276     0.2676477      0.9600573  ** 0.9695919    
-18   959.2129 ***  1304.605      0.3475254     0.2676874      0.9600573 *** 0.9695929  
+18   959.2129 ***  1304.605      0.3475254     0.2676874      0.9600573 *** 0.9695929
 ```
 
 R-squared Adjusted is smallest in case of 14 variable model when we train model. However, if we select model using validation set, RMSE for testing set is min in 12 variable model.
 
-#### Exhaustive approach
+### Exhaustive approach
 
 ```r
 > M.back.accuracy
@@ -221,26 +225,25 @@ R-squared Adjusted is smallest in case of 14 variable model when we train model.
 
 R-squared Adjusted is smallest in case of 14 variable model when we train model. However, if we select model using validation set, RMSE for testing set is min in 15 variable model.
 
-We here can compare the behavior of RMSE of testing set with that of training set (the left chart) and zoom in RMSE of testing set (the right chart) when we increase the number of explanatory variables.
+We here can compare the behavior of RMSE of testing set with that of training set \(the left chart\) and zoom in RMSE of testing set \(the right chart\) when we increase the number of explanatory variables.
 
-#### Exhaustive approach
+### Exhaustive approach
 
-![RMSE](../resources/MS01/images/08_ex_plot.jpeg)
+![RMSE](../.gitbook/assets/08_ex_plot.jpeg)
 
-#### Forward approach
+### Forward approach
 
-![RMSE](../resources/MS01/images/09_for_plot.jpeg)
+![RMSE](../.gitbook/assets/09_for_plot.jpeg)
 
-#### Exhaustive approach
+### Exhaustive approach
 
-![RMSE](../resources/MS01/images/10_back_plot.jpeg)
+![RMSE](../.gitbook/assets/10_back_plot.jpeg)
 
 As we expect, the training error goes down monotonically as we add more explanatory variables, but not so for the validation error. RMSE for testing set fluctuates dynamically. Increasing the size of the model does not guarantee higher accuracy.
 
+## OLS Regression Model - Evaluate the accuracy of the model using Cross Validation
 
-### OLS Regression Model - Evaluate the accuracy of the model using Cross Validation
-
-we need function cv.glm() from boot package to calculate K-fold cross-validation prediction error. 
+we need function cv.glm\(\) from boot package to calculate K-fold cross-validation prediction error.
 
 ```r
 library(boot)
@@ -257,16 +260,13 @@ M.linear.y.hat=predict(M.linear,x.test)
 rmse_comparison[4]<-RMSE(y=y.test,y.hat=M.linear.y.hat)
 ```
 
-** There are two potential problems with this OLS regression when we include all explanatory variables:** 
-1. Prediction Accuracy: When n (number of observations) ~ p (number of predictors), the least square fit can have high variance and may result in over fitting and poor estimates on unseen observations. And, when n < p, then the variability of the least squares fit increases dramatically, and the variance of these estimates is infinite.
-2. Model Interpretability: When we have a large number of variables X in the model, there will generally be many that have little or no effect on Y, which makes it harder to see the big picture or recognize the effect of "important variables"
+ **There are two potential problems with this OLS regression when we include all explanatory variables:** 1. Prediction Accuracy: When n \(number of observations\) ~ p \(number of predictors\), the least square fit can have high variance and may result in over fitting and poor estimates on unseen observations. And, when n &lt; p, then the variability of the least squares fit increases dramatically, and the variance of these estimates is infinite. 2. Model Interpretability: When we have a large number of variables X in the model, there will generally be many that have little or no effect on Y, which makes it harder to see the big picture or recognize the effect of "important variables"
 
-** A solution for this is Subset Selection, which is done at the begining of this post. We will include some more solutions below."
-
+\*\* A solution for this is Subset Selection, which is done at the begining of this post. We will include some more solutions below."
 
 We can fit a model containing all p predictors using a technique that constrains or regularizes the coefficient estimates, or equivalently, that shrinks the coefficient estimates towards zero. Shrinking the coefficient estimates can significantly reduce their variance.The two best-known techniques for shrinking the regression coefficients towards zero are ridge regression and the lasso.
 
-### Ridge Regression
+## Ridge Regression
 
 We need to pick the tuning parameter lambda, and we do this by cross-validation.
 
@@ -284,9 +284,10 @@ plot(cv.out)
 best.lambda=cv.out$lambda.min
 best.lambda # = 351.804
 ```
-Because we let the function automatically pick the range of lambda, this plot is not so useful. The variance of MSE seems to increase as lambda increases. This is unfortunately not true. If we do it again, we better set a wider range of lambda by set a variable lambdarange <- (exp(1))^seq(10, -2, length = 100), and use this in the function. If we did that, the range of log(lambda) would be from -2 to 10, instead of 6 to 14 like in the graph. We will demonstrate this in the Lasso model below.
 
-![MSE](../resources/MS01/images/13.jpeg)
+Because we let the function automatically pick the range of lambda, this plot is not so useful. The variance of MSE seems to increase as lambda increases. This is unfortunately not true. If we do it again, we better set a wider range of lambda by set a variable lambdarange &lt;- \(exp\(1\)\)^seq\(10, -2, length = 100\), and use this in the function. If we did that, the range of log\(lambda\) would be from -2 to 10, instead of 6 to 14 like in the graph. We will demonstrate this in the Lasso model below.
+
+![MSE](../.gitbook/assets/13.jpeg)
 
 ```r
 starting.time=Sys.time()
@@ -296,6 +297,7 @@ time_consumed[1,5]=round(finishing.time-starting.time,4)
 ```
 
 By checking the coefficients of the model, we can see some coefficients are shrinked to nearly 0.
+
 ```r
 > coef(M.ridge)
 19 x 1 sparse Matrix of class "dgCMatrix"
@@ -325,11 +327,12 @@ Elite        6.587377e+02
 M.ridge.y.hat=predict(M.ridge,s=best.lambda,newx = mat.x[test_id,])
 rmse_comparison[5]<-RMSE(y=y.test,y.hat=M.ridge.y.hat)
 ```
-### Lasso Regression
 
-The LASSO works in a similar way to Ridge Regression, except it uses a different penalty term. Using this penalty, it could be proven mathematically that some coefficients end up being set to exactly zero. 
+## Lasso Regression
 
-With LASSO, we can produce a model that has high predictive power and it is simple to interpret 
+The LASSO works in a similar way to Ridge Regression, except it uses a different penalty term. Using this penalty, it could be proven mathematically that some coefficients end up being set to exactly zero.
+
+With LASSO, we can produce a model that has high predictive power and it is simple to interpret
 
 ```r
 set.seed(1)
@@ -345,7 +348,8 @@ plot(cv.out)
 best.lambda=cv.out$lambda.min
 best.lambda # = 9.043264
 ```
-![MSE](../resources/MS01/images/14.jpeg)
+
+![MSE](../.gitbook/assets/14.jpeg)
 
 ```r
 starting.time=Sys.time()
@@ -382,12 +386,14 @@ Elite        5.553816e+02
 ```
 
 Adding the RMSE to the report table
+
 ```r
 M.lasso.y.hat=predict(M.lasso,s=best.lambda,newx = mat.x[test_id,])
 rmse_comparison[6]<-RMSE(y=y.test,y.hat=M.lasso.y.hat)
 ```
 
-### Elastic Net
+## Elastic Net
+
 This is a dynamic blending of lasso and ridge regression.
 
 ```r
@@ -401,10 +407,10 @@ plot(cv.out)
 best.lambda=cv.out$lambda.min 
 best.lambda # = 4.030697
 ```
-![MSE](../resources/MS01/images/17.jpeg)
+
+![MSE](../.gitbook/assets/17.jpeg)
 
 ```r
-
 starting.time=Sys.time()
 M.elastic=glmnet(mat.x[-test_id,],y.train,alpha = .5,lambda=best.lambda)
 finishing.time=Sys.time()
@@ -414,12 +420,11 @@ M.elastic.y.hat=predict(M.elastic,s=best.lambda,newx=mat.x[test_id,])
 rmse_comparison[9]<-RMSE(y=y.test,y.hat=M.elastic.y.hat)
 ```
 
-
 The methods that we have discussed so far in this post have involved fitting linear regression models, via least squares or a shrunken approach, using the original predictors, X1, X2, … , Xp.
 
 We now explore a class of approaches that transform the predictors and then fit a least squares model using the transformed variables. We will refer to these techniques as dimension reduction methods.
 
-### PCR Model
+## PCR Model
 
 ```r
 library (pls)
@@ -432,7 +437,8 @@ time_consumed[1,7]=round(finishing.time-starting.time,4)
 summary(M.pcr)
 validationplot(M.pcr,val.type=c("MSEP"))
 ```
-![MSE](../resources/MS01/images/16.jpeg)
+
+![MSE](../.gitbook/assets/16.jpeg)
 
 Based on the graph, we may pick 5 PCs to build our models because the degree of MSEs reduction is not subtantial when we increases the number of PCs from 5 to 18.
 
@@ -441,7 +447,7 @@ M.pcr.y.hat = predict(M.pcr,x.test,ncomp = 5)
 rmse_comparison[7]<-RMSE(y=y.test,y.hat=M.pcr.y.hat)
 ```
 
-### PLS Model
+## PLS Model
 
 ```r
 starting.time=Sys.time()
@@ -453,8 +459,7 @@ summary (M.pls)
 validationplot(M.pls,val.type=c("MSEP"))
 ```
 
-![MSE](../resources/MS01/images/20.jpeg)
-
+![MSE](../.gitbook/assets/20.jpeg)
 
 Based on the graph, we may pick 5 PCs to build our models because the degree of MSEs reduction is not subtantial when we increases the number of PCs from 5 to 18.
 
@@ -463,7 +468,7 @@ M.pls.y.hat= predict(M.pls,x.test,ncomp = 5)
 rmse_comparison[8]<-RMSE(y=y.test,y.hat=M.pls.y.hat)
 ```
 
-### To compare the performance of all models on test set
+## To compare the performance of all models on test set
 
 **RMSE**
 
@@ -484,3 +489,4 @@ Ridge and Lasso are most efficient.
   Sub_Ex Sub_For Sub_Back Linear Reg Ridge  Lasso    PCR    PLS Elastic Net
 1 0.0299  0.0519   0.1396     0.0249 0.017 0.0179 0.0908 0.1047      0.0349
 ```
+
