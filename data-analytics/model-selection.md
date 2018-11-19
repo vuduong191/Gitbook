@@ -6,6 +6,8 @@ _This image may not relate to this project at all. Source:_ [http://www.koreatim
 
 > This is a homework assignment in DSO\_530 Applied Modern Statistical Learning Methods class by professor Robertas Gabrys, USC. I completed this project with two other classmates He Liu and Kurshal Bhatia
 
+---
+
 ## Prompt
 
 The data set was taken from the StatLib data repository which is administered and maintained at Carnegie Mellon University. The data set was used in the ASA Statistical Graphics Section's Data Analysis Exposition. This data set consists of 777 observations and 19 variables:
