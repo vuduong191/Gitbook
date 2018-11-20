@@ -4,7 +4,7 @@
 
 _This image may not relate to this project at all. Source:_ [http://www.koreatimesus.com](http://www.koreatimesus.com)_._ All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/MS01)
 
-> This is a homework assignment in DSO\_530 Applied Modern Statistical Learning Methods class by professor Robertas Gabrys, USC. I completed this project with two other classmates He Liu and Kurshal Bhatia. In this assignment, we practice Linear Model Selection and Regularization. We got to know Subset Selection, Shrinkage Methods and Dimension Reduction Regression
+> This is a homework assignment in DSO\_530 Applied Modern Statistical Learning Methods class by professor Robertas Gabrys, USC. I completed this project with two classmates He Liu and Kurshal Bhatia. In this assignment, we practice Linear Model Selection and Regularization. We got to know Subset Selection, Shrinkage Methods and Dimension Reduction Regression
 
 ## Prompt
 

@@ -14,7 +14,7 @@ I started to study in UCLAx Coding Boot Camp in August 2018. I realized the proc
 
 [Index](https://vuduong191.github.io/Word-Guess-Game/) \| [Github Repo](https://github.com/vuduong191/Word-Guess-Game)
 
-This is the homework for week 3, when we started to learn Java Script
+This is the homework for week 3, when we started to learn Java Script to make websites interactive.
 
 ## Jquery Calculator
 
