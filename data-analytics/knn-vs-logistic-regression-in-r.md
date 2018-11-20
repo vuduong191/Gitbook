@@ -1,10 +1,10 @@
 # KNN vs Logistic Regression in R
 
-![Cover](../.gitbook/assets/cover%20%281%29.jpeg)
+![Cover](../resources/KNN01/images/cover.jpg)
 
 _This image may not relate to this project at all. Source: www.childcarseats.com.au. All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/KNN01)
 
-> This is a homework assignment in DSO\_530 Applied Modern Statistical Learning Methods class by professor Robertas Gabrys, USC. I completed this project with two classmates He Liu and Kurshal Bhatia. In this assignment, we compare the predictive power of KNN and Logistic Regression.
+> This is a short homework assignment in DSO\_530 Applied Modern Statistical Learning Methods class by professor Robertas Gabrys, USC. I completed this project with two classmates He Liu and Kurshal Bhatia. In this assignment, we compare the predictive power of KNN and Logistic Regression.
 
 ---
 
