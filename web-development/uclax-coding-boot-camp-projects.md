@@ -6,7 +6,7 @@ description: All the projects I have done in the boot camp
 
 ![](https://media.giphy.com/media/zOvBKUUEERdNm/giphy.gif)
 
-I started to study in UCLAx Coding Boot Camp in August 2018. I realized the process of problem solving, logically thinking, creative thinking, designing and playing with color is a huge interest of mine. In all of these projects, I \(We\) had to build everything from scratch. The instructions are in markdown format. The requirement for these projects is mainly making everything run smoothly, but I spent extra hours to invest in the colors and shapes. These deliverable is not up to a perfect level, and there's room for improvements for sure. However, due to my tight schedule, I stopped myself at some points and moved to a new project. 
+I started to study in UCLAx Coding Boot Camp in August 2018. I realized the process of problem solving, logically thinking, creative thinking, designing and playing with color is a huge interest of mine. In all of these projects, I \(We\) had to build everything from scratch. The instructions are in markdown format that describe the core features of the product. The requirement for these projects is mainly making everything run smoothly, but I spent extra hours to invest in the colors, shapes and user experience. The deliverable is not up to a perfect level, and there's room for improvements for sure. However, due to my tight schedule, I stopped myself at some points and moved to a new project.
 
 ## Hang Man 80's Style
 
@@ -54,8 +54,7 @@ This is a group project, where we got to know the tremendous possibility of API.
 
 [Index](https://vuduong191.github.io/yourfavoritegifs/) \| [Github Repo](https://github.com/vuduong191/yourfavoritegifs)
 
-This is a homework for week 6, when we learned local storage, which is built into a web browser to store data of the user. The data will persist on the local computer as long as you don’t clear the cache. In this project, we use Giphy API to display gifs that relate to an emotion. Users can save their favorite gifs for later references.
-
+This is a homework for week 6, when we learned local storage, which is built into a web browser to store data of the user. The data will persist on the local computer as long as you don’t clear the cache. In this project, I use Giphy API to display gifs that relate to an emotion. Users can save their favorite gifs for later references.
 
 ## RPS Multiplayer
 
@@ -63,7 +62,7 @@ This is a homework for week 6, when we learned local storage, which is built int
 
 [Index](https://vuduong191.github.io/RPS-Multiplayer/) \| [Github Repo](https://github.com/vuduong191/RPS-Multiplayer)
 
-This is a homework for week 7, when we learned about Firebase Realtime Database. The Firebase Realtime Database is a cloud-hosted database. Data is stored as JSON and synchronized in realtime to every connected client. When you build cross-platform apps with our iOS, Android, and JavaScript SDKs, all of your clients share one Realtime Database instance and automatically receive updates with the newest data.
+This is a homework for week 7, when we learned about Firebase Realtime Database. The Firebase Realtime Database is a cloud-hosted database. Data is stored as JSON and synchronized in real time to every connected client. This is fascinating, because it's a big step toward building a real app, with which users can save their data for later use.
 
 ## Liri Node Apps
 
@@ -71,4 +70,5 @@ This is a homework for week 7, when we learned about Firebase Realtime Database.
 
 [Readme file](https://vuduong191.github.io/liri-node-app-/readme.md) \| [Github Repo](https://github.com/vuduong191/liri-node-app-)
 
-This is a homework for week 10, when we learned about NodeJS. 
+This is a homework for week 10, when we learned about NodeJS.  With Node run-time environment, we can execute a program written in JavaScript. 
+
