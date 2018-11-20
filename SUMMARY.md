@@ -9,6 +9,7 @@
 * [Cleaning Data in R, Average daily attendance \(ADA\) USA](data-analytics/cleaning-data-in-r-average-daily-attendance-ada-usa.md)
 * [Clone Instagram using Node JS and MySQL](data-analytics/clone-instagram-using-node-js-and-mysql.md)
 * [Model Selection in R](data-analytics/model-selection.md)
+* [KNN vs Logistic Regression in R](data-analytics/knn-vs-logistic-regression-in-r.md)
 
 ## Web Development
 
