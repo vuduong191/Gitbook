@@ -1,20 +1,18 @@
 # KNN vs Logistic Regression in R
 
-![Cover](../resources/KNN01/images/cover.jpg)
+![Cover](../.gitbook/assets/cover%20%281%29.jpg)
 
-_This image may not relate to this project at all. Source: www.childcarseats.com.au. All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/KNN01)
+\_This image may not relate to this project at all. Source: www.childcarseats.com.au. All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/KNN01)
 
 > This is a short homework assignment in DSO\_530 Applied Modern Statistical Learning Methods class by professor Robertas Gabrys, USC. I completed this project with two classmates He Liu and Kurshal Bhatia. In this assignment, we compare the predictive power of KNN and Logistic Regression.
 
----
+## Prompt
 
-### Prompt
+A child car seat company is interested in understanding what factors contribute to sales for one of its products. They have sales data on a particular model of child car seats at different stores inside and outside the United States.
 
-A child car seat company is interested in understanding what factors contribute to sales for one of its products. They have sales data on a particular model of child car seats at different stores inside and outside the United States. 
+To simplify the analysis, the company considers sales at a store to be “**Satisfactory**” if they are able to cover 115% of their costs at that location \(i.e., roughly 15% profit\) and “**Unsatisfactory**” if sales cover less than 115% of costs at that location \(i.e., less than 15% profit\).
 
-To simplify the analysis, the company considers sales at a store to be “**Satisfactory**” if they are able to cover 115% of their costs at that location \(i.e., roughly 15% profit\) and “**Unsatisfactory**” if sales cover less than 115% of costs at that location \(i.e., less than 15% profit\). 
-
-The data set consists of 11 variables and 400 observations.  Each observation corresponds to one of the stores.
+The data set consists of 11 variables and 400 observations. Each observation corresponds to one of the stores.
 
 | **Variables** | **Description** |
 | :--- | :--- |
@@ -30,7 +28,7 @@ The data set consists of 11 variables and 400 observations.  Each observation co
 | Urban | A factor with levels \(Yes=1 and No=0\) to indicate whether the store is in an urban or rural location |
 | US | A factor with levels \(Yes=1 and No=0\) to indicate whether the store is in the US or not |
 
-### Load data
+## Load data
 
 ```r
 > carseat.data=read.csv("carseat.txt")
@@ -44,7 +42,7 @@ The data set consists of 11 variables and 400 observations.  Each observation co
 6     1       124    113          13        501    72         0  78        16     0  1
 ```
 
-### Create the validation set and training set
+## Create the validation set and training set
 
 ```r
 testing_data=carseat.data[1:100,]
@@ -55,7 +53,7 @@ testing_x=testing_data[,-1]
 training_x=training_data[,-1]
 ```
 
-### Train the logistic regression model
+## Train the logistic regression model
 
 ```r
 > logistic_model=glm(Sales~.,data=training_data, family="binomial")
@@ -92,7 +90,9 @@ AIC: 244.16
 
 Number of Fisher Scoring iterations: 6
 ```
+
 Find the cutoff value
+
 ```r
 > cutoff_table = data.frame(seq(0.2,0.8,by=0.05), rep(NA,13))
 > colnames(cutoff_table)<-c("Cutoff", "Misclassification_error")
@@ -117,9 +117,11 @@ Find the cutoff value
 12   0.75               0.2166667
 13   0.80               0.2233333
 ```
+
 The misclassification rate is lowest at 14.3% whenthe cutoff value is 0.55. We will use this value to predict on the testing set.
 
 Create confusion matrix on testing set
+
 ```r
 > logistic_test_probs=predict(logistic_model,testing_data,type="response")
 > logistic_test_pred_y=ifelse(logistic_test_probs>0.55,1,0)
@@ -133,9 +135,11 @@ logistic_test_pred_y  0  1
 > misclassifaction_error_test
 [1] 0.2
 ```
+
 The misclassification error for the testing set is 20%, smaller than that of the training set. This is actually a very impressive result.
 
 False positive and false negative rates
+
 ```r
 > false_positive_test=conf_matrix_test[2,1]/sum(testing_y==0)
 > false_positive_test
@@ -145,7 +149,7 @@ False positive and false negative rates
 [1] 0.3555556
 ```
 
-### KNN Model
+## KNN Model
 
 First we need package "class" to run k-nearest neighbour classification. It requires the response variable to be factor.
 
@@ -155,7 +159,9 @@ dim(carseat.data)
 class(carseat.data$Sales)
 carseat.data$Sales=as.factor(carseat.data$Sales)
 ```
+
 Find k to minimize misclassification rate
+
 ```r
 > for (i in 1:20) {
 +   set.seed(1)
@@ -170,6 +176,7 @@ Find k to minimize misclassification rate
 ```
 
 Misclassification rate and confusion matrix
+
 ```r
 > set.seed(1)
 > y_pred <- knn(train=training_x,test=testing_x,cl=training_y,k=16)
@@ -184,6 +191,7 @@ y_pred  0  1
 ```
 
 False positive and false negative rates
+
 ```r
 > false_positive_test_2=conf_matrix_test_2[2,1]/sum(testing_y==0)
 > false_positive_test_2
@@ -192,4 +200,6 @@ False positive and false negative rates
 > false_negative_test_2
 [1] 0.6222222
 ```
+
 Compared with Logistic regression, KNN has higher misclassification rate. Especially, the false negative rate is substantially high at 62.2%
+

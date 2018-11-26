@@ -32,7 +32,7 @@ Expend = Instructional expenditure per student
 Grad.Rate = Graduation rate
 ```
 
-Objective of the analysis: build a predictive model to predict the number of applications received using given features in the College data set. 
+Objective of the analysis: build a predictive model to predict the number of applications received using given features in the College data set.
 
 We will use several models and compare their predictive accuracy.
 

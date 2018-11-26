@@ -13,8 +13,6 @@ _This image may not relate to this project at all. Source: www.appoets.com._ All
 
 > C'mon! I can't clone Instagram. I dealt with MySQL a lot of time in my career, but when I knew how we can set up MySQL server on Node JS, I got very excited and went ahead to create this app.
 
----
-
 I am aware that MySQL is not the best choice to create something like this app. However, as I am interested in the platform, I created it anyway. Many resources used in this app are taken from a MySQL course on Udemy by Colt Steele. He's a great instructor, and his cat is cute. By the way, I host this on Cloud9, but it requires monthly fee to keep its server open. Otherwise, it stops in like 2 hours of inactivity. I refused to pay, so the only way you can see this is to host it somewhere \(Cloud9 or Heroku, the latter is the cheaper choice\).
 
 **However, here is the screenshot.**

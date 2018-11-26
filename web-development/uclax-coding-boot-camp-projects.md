@@ -68,7 +68,7 @@ This is a homework for week 7, when we learned about Firebase Realtime Database.
 
 ![Liri Node Apps](https://lh3.googleusercontent.com/VWiOlSuC5SLEP3amNBASxitjFFo5gEopSW0W0d-2JVHjJ_tvx3_sVNsZfpVOdv7NIb3C7IaZLY2peUKh89lBHbZ6Xe8xHBDoBrn-4OYbw7t97UO8j96lnjM9ir0N_jnXKv5f0bYu5Q=w400)
 
-[Readme file](https://vuduong191.github.io/liri-node-app-/readme.md) \| [Github Repo](https://github.com/vuduong191/liri-node-app-)
+[Readme file](https://vuduong191.github.io/liri-node-app-/) \| [Github Repo](https://github.com/vuduong191/liri-node-app-)
 
-This is a homework for week 10, when we learned about NodeJS.  With Node run-time environment, we can do much more with JavaScript than just making websites interactive.
+This is a homework for week 10, when we learned about NodeJS. With Node run-time environment, we can do much more with JavaScript than just making websites interactive.
 
