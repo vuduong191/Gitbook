@@ -72,3 +72,11 @@ This is a homework for week 7, when we learned about Firebase Realtime Database.
 
 This is a homework for week 10, when we learned about NodeJS. With Node run-time environment, we can do much more with JavaScript than just making websites interactive.
 
+## Bamazon Node Apps
+
+![Liri Node Apps](https://lh3.googleusercontent.com/nXBNn9AyER63UAEHkEUbM6xmKUuSx5arZMtz1IgR7cwGU3IjpbTP5LHp5RhN6rF-cDFcCPrSeLaiEFsEU5k09ixD4RtOSErqDvTqvDQZLCYpgTM2O1u_RJnW86OeQIqroby86Xr4EQ=w400)
+
+[Readme file](https://vuduong191.github.io/bamazon/) \| [Github Repo](https://github.com/vuduong191/bamazon)
+
+This is a homework for week 12, when we learned about how to connect NodeJS with MySQL Database.
+
