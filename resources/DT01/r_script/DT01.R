@@ -82,7 +82,7 @@ dim(cust_data6)
 
 data_ready <- cust_data6
 
-#############Finding outliers
+#Finding outliers
 
 #Analyzing box plots
 par(mfrow=c(1,3))
@@ -152,52 +152,6 @@ summary(data_ready)
 par(mfrow=c(1,3))
 for (i in 1:48) boxplot(data_ready[,i], main = colnames(data_ready)[i])
 
-####################################
-#Assessing management's assumptions
-
-par(mfrow=c(1,1))
-plot(data_ready$Active.Credit.Lines, data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Active.Credit.Lines, data_ready$Annual.Fees),2), sep=""), xlab="Active.Credit.Lines", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Active.Credit.Lines, data_ready), col="red") # regression line (y~x) 
-
-plot(data_ready$Utilitization.Percent, data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Utilitization.Percent, data_ready$Annual.Fees),2), sep=""), xlab="Utilitization.Percent", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Utilitization.Percent, data_ready), col="red") # regression line (y~x) 
-
-plot(data_ready$Credit.score, data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Credit.score, data_ready$Annual.Fees),2), sep=""), xlab="Credit.score", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Credit.score, data_ready), col="red") # regression line (y~x) 
-
-par(mfrow=c(1,2))
-plot(data_ready$Originator_A , data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Originator_A , data_ready$Annual.Fees),2), sep=""), xlab="Originator_A ", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Originator_A , data_ready), col="red") # regression line (y~x) 
-
-plot(data_ready$Originator_C , data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Originator_C , data_ready$Annual.Fees),2), sep=""), xlab="Originator_C ", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Originator_C , data_ready), col="red") # regression line (y~x) 
-
-par(mfrow=c(1,1))
-plot(data_ready$Industry.Main.Cat_Ser , data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Industry.Main.Cat_Ser , data_ready$Annual.Fees),2), sep=""), xlab="Industry.Main.Cat_Ser ", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Industry.Main.Cat_Ser , data_ready), col="red") # regression line (y~x) 
-
-plot(data_ready$Num.Charged.Off , data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Num.Charged.Off , data_ready$Annual.Fees),2), sep=""), xlab="Num.Charged.Off ", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Num.Charged.Off , data_ready), col="red") # regression line (y~x) 
-
-plot(data_ready$Years.in.Business , data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Years.in.Business , data_ready$Annual.Fees),2), sep=""), xlab="Years.in.Business ", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Years.in.Business , data_ready), col="red") # regression line (y~x) 
-
-par(mfrow=c(1,2))
-plot(data_ready$Property.Ownership_Lease , data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Property.Ownership_Lease , data_ready$Annual.Fees),2), sep=""), xlab="Property.Ownership_Lease ", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Property.Ownership_Lease , data_ready), col="red") # regression line (y~x) 
-
-plot(data_ready$Property.Ownership_Own , data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Property.Ownership_Own , data_ready$Annual.Fees),2), sep=""), xlab="Property.Ownership__Own ", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Property.Ownership_Own , data_ready), col="red") # regression line (y~x)
-
-par(mfrow=c(1,2))
-plot(data_ready$Average.House.Value , data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Average.House.Value , data_ready$Annual.Fees),2), sep=""), xlab="Average.House.Value ", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Average.House.Value , data_ready), col="red") # regression line (y~x) 
-
-plot(data_ready$Income.Per.Household , data_ready$Annual.Fees, main=paste("Cor= ",round(cor(data_ready$Income.Per.Household , data_ready$Annual.Fees),2), sep=""), xlab="Income.Per.Household ", ylab="Annual.Fees ", pch=19)
-abline(lm(Annual.Fees~Income.Per.Household , data_ready), col="red") # regression line (y~x) 
-
-###########################################################
-
 #Best Subset Selection
 # Divide data into training and testing sets
 set.seed(1)
@@ -216,6 +170,7 @@ RMSE=function(y,y.hat) sqrt(mean((y-y.hat)^2))
 MAPE=function(y,y.hat) mean(abs((y-y.hat)/y))
 
 # Upload leaps packages that has regsubsets function
+if (!require("leaps")) install.packages("leaps")
 library(leaps)
 
 # regsubset with exhaustive method
@@ -249,54 +204,54 @@ for (i in 1:3){
   M.ex.accuracy[match(sort(M.ex.accuracy$Test.Corr)[48-i],M.ex.accuracy$Test.Corr),12]=paste(replicate(4-i, '*'), collapse = "");  
 }
 M.ex.accuracy
-# Train.RMSE     Test.RMSE     Train.MAPE     Test.MAPE     Train.Corr     Test.Corr    
-# 1    721.4117      742.8137      0.1911004     0.1883117      0.3493874     0.3131580    
-# 2    666.4447      707.7468      0.1795857     0.1816457      0.5007593     0.4265397    
-# 3    634.6883      676.0299      0.1668668     0.1706180      0.5660935     0.5027058    
-# 4    606.3308      656.1156      0.1588785     0.1625608      0.6163020     0.5484201    
-# 5    587.2279      639.2589      0.1540947     0.1584896      0.6467538     0.5788554    
-# 6    568.1637      619.4314      0.1533400     0.1577279      0.6748685     0.6134524    
-# 7    554.2486      609.3626      0.1506964     0.1553701      0.6941143     0.6292644    
-# 8    547.8627      606.6644      0.1483171     0.1528194      0.7026144     0.6342027    
-# 9    542.4419      595.1417      0.1489349     0.1534057      0.7096740     0.6503290    
-# 10   538.3878      592.2832      0.1476254     0.1519987      0.7148628     0.6548963    
-# 11   536.1445      593.8085      0.1474871     0.1522437      0.7177013     0.6528383    
-# 12   534.4884      593.0310      0.1470118     0.1519784      0.7197820     0.6537525    
-# 13   533.1219      591.5274      0.1466066     0.1513111      0.7214896     0.6561182    
-# 14   532.1960      589.6873      0.1462784     0.1510248      0.7226417     0.6584615    
-# 15   531.4728      589.3718      0.1459290     0.1511715      0.7235391     0.6585279    
-# 16   530.7948      589.8179      0.1457133     0.1513209      0.7243782     0.6579584    
-# 17   530.1922      589.0783      0.1454407     0.1510628      0.7251223     0.6589496    
-# 18   529.7080      585.3970      0.1456823     0.1504785      0.7257189     0.6639464    
+# Train.RMSE     Test.RMSE     Train.MAPE     Test.MAPE     Train.Corr     Test.Corr
+# 1    721.4117      742.8137      0.1911004     0.1883117      0.3493874     0.3131580
+# 2    666.4447      707.7468      0.1795857     0.1816457      0.5007593     0.4265397
+# 3    634.6883      676.0299      0.1668668     0.1706180      0.5660935     0.5027058
+# 4    606.3308      656.1156      0.1588785     0.1625608      0.6163020     0.5484201
+# 5    587.2279      639.2589      0.1540947     0.1584896      0.6467538     0.5788554
+# 6    568.1637      619.4314      0.1533400     0.1577279      0.6748685     0.6134524
+# 7    554.2486      609.3626      0.1506964     0.1553701      0.6941143     0.6292644
+# 8    547.8627      606.6644      0.1483171     0.1528194      0.7026144     0.6342027
+# 9    542.4419      595.1417      0.1489349     0.1534057      0.7096740     0.6503290
+# 10   538.3878      592.2832      0.1476254     0.1519987      0.7148628     0.6548963
+# 11   536.1445      593.8085      0.1474871     0.1522437      0.7177013     0.6528383
+# 12   534.4884      593.0310      0.1470118     0.1519784      0.7197820     0.6537525
+# 13   533.1219      591.5274      0.1466066     0.1513111      0.7214896     0.6561182
+# 14   532.1960      589.6873      0.1462784     0.1510248      0.7226417     0.6584615
+# 15   531.4728      589.3718      0.1459290     0.1511715      0.7235391     0.6585279
+# 16   530.7948      589.8179      0.1457133     0.1513209      0.7243782     0.6579584
+# 17   530.1922      589.0783      0.1454407     0.1510628      0.7251223     0.6589496
+# 18   529.7080      585.3970      0.1456823     0.1504785      0.7257189     0.6639464
 # 19   529.3674      583.9710   *  0.1455357     0.1499270   *  0.7261380     0.6658994   *
-# 20   529.1214      584.1074      0.1455305     0.1499204  **  0.7264404     0.6657824    
-# 21   528.7795      585.0963      0.1453984     0.1504383      0.7268603     0.6645329    
+# 20   529.1214      584.1074      0.1455305     0.1499204  **  0.7264404     0.6657824
+# 21   528.7795      585.0963      0.1453984     0.1504383      0.7268603     0.6645329
 # 22   528.4289      583.6589 ***  0.1453194     0.1499022 ***  0.7272903     0.6664968 ***
 # 23   528.1883      583.9339  **  0.1453533     0.1499291      0.7275851     0.6661588  **
-# 24   527.9696      584.7479      0.1452189     0.1503263      0.7278528     0.6650039    
-# 25   527.7930      585.4745      0.1451494     0.1504809      0.7280688     0.6640026    
-# 26   527.6444      585.1994      0.1451304     0.1504088      0.7282505     0.6644207    
-# 27   527.5030      585.4332      0.1449160     0.1503255      0.7284233     0.6640745    
-# 28   527.4249      586.0384      0.1450064     0.1505633      0.7285187     0.6632509    
-# 29   527.2195      585.6898      0.1447873     0.1505620      0.7287694     0.6637158    
-# 30   527.0214      585.8464      0.1448312     0.1505729      0.7290111     0.6635338    
-# 31   526.9058      586.0466      0.1446574     0.1505162      0.7291521     0.6632301    
-# 32   526.8173      586.7033      0.1447334     0.1507678      0.7292599     0.6623361    
-# 33   526.7502      586.2142      0.1446958     0.1506529      0.7293417     0.6630382    
-# 34   526.7134      586.5683      0.1447183     0.1507794      0.7293865     0.6625206    
-# 35   526.6713      585.9575      0.1446904     0.1505901      0.7294378     0.6633628    
-# 36   526.6480      586.0083      0.1446870     0.1505943      0.7294662     0.6632901    
-# 37   526.6294      586.0708      0.1446479     0.1506038      0.7294889     0.6631828    
-# 38   526.6081      586.0077      0.1447054     0.1506364      0.7295147     0.6632002    
-# 39   526.5884      585.9664      0.1446812     0.1506215      0.7295388     0.6632546    
-# 40   526.5692      586.0169      0.1446779     0.1506281      0.7295621     0.6631847    
-# 41   526.5547      585.9767      0.1446717     0.1506128      0.7295797     0.6632478    
-# 42   526.5462      585.9726      0.1446423     0.1506140      0.7295901     0.6632444    
-# 43   526.5380      585.7427      0.1446318     0.1505514      0.7296001     0.6635464    
-# 44   526.5332      585.7406      0.1446202     0.1505625      0.7296059     0.6635394    
-# 45   526.5312   *  585.7614      0.1446060   * 0.1505540      0.7296084   * 0.6635119    
-# 46   526.5308  **  585.7740      0.1446022  ** 0.1505642      0.7296088  ** 0.6634918    
-# 47   526.5305 ***  585.7871      0.1445989 *** 0.1505693      0.7296092 *** 0.6634696  
+# 24   527.9696      584.7479      0.1452189     0.1503263      0.7278528     0.6650039
+# 25   527.7930      585.4745      0.1451494     0.1504809      0.7280688     0.6640026
+# 26   527.6444      585.1994      0.1451304     0.1504088      0.7282505     0.6644207
+# 27   527.5030      585.4332      0.1449160     0.1503255      0.7284233     0.6640745
+# 28   527.4249      586.0384      0.1450064     0.1505633      0.7285187     0.6632509
+# 29   527.2195      585.6898      0.1447873     0.1505620      0.7287694     0.6637158
+# 30   527.0214      585.8464      0.1448312     0.1505729      0.7290111     0.6635338
+# 31   526.9058      586.0466      0.1446574     0.1505162      0.7291521     0.6632301
+# 32   526.8173      586.7033      0.1447334     0.1507678      0.7292599     0.6623361
+# 33   526.7502      586.2142      0.1446958     0.1506529      0.7293417     0.6630382
+# 34   526.7134      586.5683      0.1447183     0.1507794      0.7293865     0.6625206
+# 35   526.6713      585.9575      0.1446904     0.1505901      0.7294378     0.6633628
+# 36   526.6480      586.0083      0.1446870     0.1505943      0.7294662     0.6632901
+# 37   526.6294      586.0708      0.1446479     0.1506038      0.7294889     0.6631828
+# 38   526.6081      586.0077      0.1447054     0.1506364      0.7295147     0.6632002
+# 39   526.5884      585.9664      0.1446812     0.1506215      0.7295388     0.6632546
+# 40   526.5692      586.0169      0.1446779     0.1506281      0.7295621     0.6631847
+# 41   526.5547      585.9767      0.1446717     0.1506128      0.7295797     0.6632478
+# 42   526.5462      585.9726      0.1446423     0.1506140      0.7295901     0.6632444
+# 43   526.5380      585.7427      0.1446318     0.1505514      0.7296001     0.6635464
+# 44   526.5332      585.7406      0.1446202     0.1505625      0.7296059     0.6635394
+# 45   526.5312   *  585.7614      0.1446060   * 0.1505540      0.7296084   * 0.6635119
+# 46   526.5308  **  585.7740      0.1446022  ** 0.1505642      0.7296088  ** 0.6634918
+# 47   526.5305 ***  585.7871      0.1445989 *** 0.1505693      0.7296092 *** 0.6634696
 
 # Plot RMSE for training set and testing set
 par(mfrow=c(1,2))
@@ -400,7 +355,7 @@ summary(mlr.9) # Adjusted R-squared:  0.5068
 #########################################################################
 
 ### KNN
-
+if (!require("FNN")) install.packages("FNN")
 library(FNN)
 set.seed(1)
 train_ID=sample(1:nrow(data_ready), 2000)
