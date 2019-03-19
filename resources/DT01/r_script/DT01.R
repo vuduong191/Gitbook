@@ -471,21 +471,7 @@ ncol(data_ready) -1
 max(floor((ncol(data_ready)/3)),1) # p/3 = 16
 max(floor((ncol(data_ready)/2)),1) # p/2 = 24
 
-set.seed(1)
-rf=randomForest(Annual.Fees~.,data=train, importance=TRUE)
-y.hat = predict(rf,newdata=test)
-mean((y.hat-y.test)^2) 
-rf=randomForest(Annual.Fees~.,data=train,mtry=16,importance=TRUE)
-y.hat = predict(rf,newdata=test)
-mean((y.hat-y.test)^2)  #mtry=16 MSE = 341569.2
-rf2=randomForest(Annual.Fees~.,data=train,mtry=17,importance=TRUE)
-y.hat = predict(rf2,newdata=test)
-mean((y.hat-y.test)^2) #mtry=7 MSE = 341131.4; 
-rf3=randomForest(Annual.Fees~.,data=train,mtry=24,importance=TRUE)
-y.hat = predict(rf3,newdata=test)
-mean((y.hat-y.test)^2) #mtry=24 MSE = 346365.8
-
-#Automatic approach 
+#Automatic approach to find the best mtry
 
 train.error = double(47)
 test.error = double(47)
@@ -496,8 +482,18 @@ for(mtry in 1:47){
   test.error[mtry] = mean((y.hat-y.test)^2)
 }
 
+matplot(1:mtry, cbind(test.error, train.error), pch = 23, col = c("red", "blue"), type = "b", ylab="Mean Squared Error")
+legend("topright", legend = c("Train", "Test"), pch = 23, col = c("red", "blue"))
+
+
+set.seed(1)
+rf=randomForest(Annual.Fees~.,data=train, mtry=11,importance=TRUE)
+y.hat = predict(rf,newdata=test)
+mean((y.hat-y.test)^2) 
+
+
 importance(rf)
-varImpPlot(rf)
+varImpPlot(rf, cex=0.6, main='Variable Importance Plot')
 summary(rf)
 plot(rf)
 
