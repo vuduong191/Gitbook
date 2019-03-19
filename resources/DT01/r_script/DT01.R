@@ -401,6 +401,7 @@ MSE_KNN.2 #605383.4
 
 #######################################################
 # Decision Tree
+if (!require("tree")) install.packages("tree")
 library(tree)
 
 set.seed(1)
@@ -418,7 +419,7 @@ tree=tree(Annual.Fees~.,train)
 summary(tree)
 par(mfrow=c(1,1))
 plot(tree)
-text(tree,pretty=0)
+text(tree,pretty=0, cex=0.6)
 
 # make prediction
 y.hat=predict (tree, newdata=test)
@@ -430,19 +431,20 @@ mean((y.hat-y.test)^2)		# MSE = 439125.2
 cv_tree=cv.tree(tree)
 names(cv_tree)
 plot(cv_tree$size,cv_tree$dev,type='b')
-prune_tree=prune.tree(tree,best=11)
+prune_tree=prune.tree(tree,best=8)
 summary(prune_tree)
 plot(prune_tree)
-text(prune_tree,pretty=0)
+text(prune_tree,pretty=0, cex = 0.6)
 
 # make prediction for prune tree
 y.hat=predict (prune_tree, newdata=test)
 plot(y.hat ,y.test)
 abline (0,1)
-mean((y.hat-y.test)^2)		# 11 nodes MSE = 445498.7; original 13nodes MSE = 439125.2
-# pruning tree in this case doesn't improve testing MSE, or saying 13 nodes does over-fit
+mean((y.hat-y.test)^2)
+# pruning tree in this case doesn't improve testing MSE
 
 # Bagging
+if (!require("randomForest")) install.packages("randomForest")
 library(randomForest)
 
 set.seed(1)
@@ -454,7 +456,7 @@ plot(y.hat, y.test)
 abline(0,1)
 mean((y.hat-y.test)^2)   #MSE = 363215.6
 
-# reducing ntree from default (500) to 200 would reduce model's training accuracy, but reducing computation
+# reducing ntree from default (500) to 200 would reduce model's accuracy, but reducing computation
 set.seed(1)
 bag=randomForest(Annual.Fees~.,data=train,mtry=ncol(data_ready)-1,ntree=200)
 y.hat = predict(bag,newdata=test)
@@ -464,12 +466,15 @@ abline(0,1)
 
 
 # Random Forests
-ncol(data_ready) -1 # = 49 
+ncol(data_ready) -1
 # sqrt(p) ~ 7
 max(floor((ncol(data_ready)/3)),1) # p/3 = 16
 max(floor((ncol(data_ready)/2)),1) # p/2 = 24
 
 set.seed(1)
+rf=randomForest(Annual.Fees~.,data=train, importance=TRUE)
+y.hat = predict(rf,newdata=test)
+mean((y.hat-y.test)^2) 
 rf=randomForest(Annual.Fees~.,data=train,mtry=16,importance=TRUE)
 y.hat = predict(rf,newdata=test)
 mean((y.hat-y.test)^2)  #mtry=16 MSE = 341569.2
@@ -480,6 +485,16 @@ rf3=randomForest(Annual.Fees~.,data=train,mtry=24,importance=TRUE)
 y.hat = predict(rf3,newdata=test)
 mean((y.hat-y.test)^2) #mtry=24 MSE = 346365.8
 
+#Automatic approach 
+
+train.error = double(47)
+test.error = double(47)
+for(mtry in 1:47){
+  rf=randomForest(Annual.Fees~.,data=train,mtry=mtry,importance=TRUE, ntree=200)
+  train.error[mtry] = rf$mse[200]
+  y.hat = predict(rf,newdata=test)
+  test.error[mtry] = mean((y.hat-y.test)^2)
+}
 
 importance(rf)
 varImpPlot(rf)
@@ -488,6 +503,7 @@ plot(rf)
 
 
 # Boosting
+if (!require("gbm")) install.packages("gbm")
 library(gbm)
 set.seed(1)
 boost=gbm(Annual.Fees~.,data=train,distribution="gaussian",n.trees=10000,interaction.depth=4)

@@ -129,10 +129,175 @@ The model with the lowest testing RMSE is the one with 22 variables.
 [17] "Avg.Annual.Salary"       "Originator_A"            "Originator_C"            "Property.Ownership_Own" 
 [21] "Ever.Bankrupt._yes"      "Industry.Main.Cat_Ser"  
 ```
-We also add two varibles that mangement considers important: "Average.House.Value", "Income.Per.Household"
+We also add two varibles that mangement considers important: "Average.House.Value" and "Income.Per.Household"
 
-Our OLS Regression model does not perform really well with R-square around 0.5. However, comparing MSE, OLS regression still beats KNN. MSE for OLS regression model is 333477.3, and one for KNN is 605383.4.
+Our OLS Regression model does not perform really well with R-square around 0.5. However, comparing testing set MSEs, OLS regression still beats KNN. MSE for OLS regression model is 333,477.3, and one for KNN is 605,383.4.
 
 ## Decision Trees
 
-Now we come to Decision Tree
+Now we come to Decision Tree.
+
+### Regression Trees
+A good strategy is to grow a very large tree and then prune it back to obtain a subtree. We want to select a subtree that leads to the lowest test error rate. We estimate the test error rate using cross-validation (CV).
+
+This is the summary of the regression tree using 'tree' package:
+```r
+> summary(tree)
+
+Regression tree:
+tree(formula = Annual.Fees ~ ., data = train)
+Variables actually used in tree construction:
+[1] "Property.Ownership_Own" "Active..60Days"         "Active.Credit.Lines"    "Originator_C"          
+[5] "Past.Due.Total.Balance" "Num.of.Bankruptcies"    "Active..30Days"        
+Number of terminal nodes:  12 
+Residual mean deviance:  335600 = 667100000 / 1988 
+Distribution of residuals:
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-1954.00  -375.00   -22.64     0.00   333.90  3794.00 
+```
+
+Note that, the tree is not using all of the available variables. A visualization of the tree:
+
+![Single Tree](../resources/DT01/images/tree01.jpeg)
+
+Using the tree to predict on the testing set, we have testing MSE of 439,125.2, which is not so impressive. Given the training MSE of 335,600, this substantially higher MSE for testing set shows over-fitting.
+
+![Prediction](../resources/DT01/images/tree02.jpeg)
+
+**Prune the tree**
+
+Looking at the graph of CV error for each size of the tree, we see that there's not much improvement when the tree size increases from 8 nodes to 12 nodes. Let's use an eight node tree.
+
+![Pruned](../resources/DT01/images/tree03.jpeg)
+
+```r
+> summary(prune_tree)
+
+Regression tree:
+snip.tree(tree = tree, nodes = c(18L, 3L, 8L))
+Variables actually used in tree construction:
+[1] "Property.Ownership_Own" "Active..60Days"         "Active.Credit.Lines"   
+[4] "Originator_C"           "Num.of.Bankruptcies"    "Past.Due.Total.Balance"
+Number of terminal nodes:  8 
+Residual mean deviance:  366300 = 729800000 / 1992 
+Distribution of residuals:
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-2397.00  -387.00   -27.96     0.00   343.60  4975.00 
+```
+Using the pruned tree to predict on the testing set, we have testing MSE of 450,941.4, which is again not so impressive, and still over-fitting. 
+
+### Bagging
+
+(Bootstrap Aggregation) is used when our goal is to reduce the variance of a decision tree. The idea is to create several random subsets of data from training set. Now, each collection of subset data is used to train their decision trees. As a result, we end up with an ensemble of different models. Average of all the predictions from different trees are used which is more robust than a single decision tree.
+
+In R, we use 'randomForest' package to conduct bagging method. This package is also used for Random Forest in our next step.
+
+```r
+> bag=randomForest(Annual.Fees~.,data=train,mtry=ncol(data_ready) - 1 ,importance=TRUE)
+> bag
+
+Call:
+ randomForest(formula = Annual.Fees ~ ., data = train, mtry = ncol(data_ready) -      1, importance = TRUE) 
+               Type of random forest: regression
+                     Number of trees: 500
+No. of variables tried at each split: 47
+
+          Mean of squared residuals: 291605.4
+                    % Var explained: 50.81
+```
+This approach shows an impressive improvement on predictive performance. The MSE for training set is 291,605.4
+
+```r
+> y.hat = predict(bag,newdata=test)
+> mean((y.hat-y.test)^2)
+[1] 363215.6
+```
+and MSE for testing set is 363,215.6. Reducing number of trees from default (500) to 200 would slightly reduce model's accuracy (MSE for testing set is 360,925.2), but also reduce computation time substantially.
+
+### Random Forest
+
+This is an extension over bagging. It takes one extra step where in addition to taking the random subset of data, it also takes the random selection of features rather than using all features to grow trees. An important parameter in R for this method is mtry - Number of variables randomly sampled as candidates at each split. Note that the default values are different for classification (sqrt(p) where p is number of variables in x) and regression (p/3). Trying different values of mtry, we see 11 variable model brings the lowest testing MSE.
+
+![mtry](../resources/DT01/images/tree04.jpeg)
+
+```r
+> rf=randomForest(Annual.Fees~.,data=train,mtry=11,importance=TRUE)
+> y.hat = predict(rf,newdata=test)
+> mean((y.hat-y.test)^2)
+[1] 341454.9
+```
+
+![Variable Importance Plot](../resources/DT01/images/tree05.jpeg)
+
+Unlike a single decision tree, Ransom Forest is an ensemble of hundreds of decision trees and we cannot easily read the splitting decisions at different nodes. Instead, we interpret our Random Forest model through reading the Variable Importance Chart above, which shows how different variable impact MSE. As how variables are ranked, this chart help the financial company to focus on a few important attributes and allow bankers to mentally prioritize and determine clients. 
+
+
+### Boosting
+
+This is another ensemble technique to create a collection of predictors. In this technique, learners are learned sequentially with early learners fitting simple models to the data and then analyzing data for errors. In other words, we fit consecutive trees (random sample) and at every step, the goal is to solve for net error from the prior tree.
+
+Unlike Random Forest, Boosting is more likely to overfit.
+
+In R, we use 'gbm' package, which is an implementation of extensions to Freund and Schapire’s AdaBoost algorithm and Friedman’s gradient boosting machine. This is the original R implementation of Gradient boosted machines. The most common hyperparameters that you will find in most GBM implementations include Number of trees (total number of trees to fit), Depth of trees (number d of splits in each tree), Learning rate (This controls how quickly the algorithm proceeds down the gradient descent. Smaller values reduce the chance of overfitting but also increases the time to find the optimal fit. This is also called shrinkage), Subsampling (this controls whether or not you use a fraction of the available training observations).  
+
+The default settings in gbm includes a learning rate (shrinkage) of 0.001. This is a very small learning rate and typically requires a large number of trees to find the minimum MSE. However, gbm uses a default number of trees of 100, which is rarely sufficient. Adjusting these parameters is necessary.
+
+```r
+> summary(boost)
+                                                    var    rel.inf
+Past.Due.Total.Balance           Past.Due.Total.Balance 8.48610463
+Property.Ownership_Own           Property.Ownership_Own 7.17388070
+Active.Credit.Lines                 Active.Credit.Lines 7.09077805
+Active..90Days                           Active..90Days 4.80802818
+Active..30Days                           Active..30Days 4.63850176
+Num.of.Bankruptcies                 Num.of.Bankruptcies 3.85703682
+Utilitization.Percent             Utilitization.Percent 3.83214143
+Credit.score                               Credit.score 3.51168841
+Active.Credit.Balance             Active.Credit.Balance 3.02505790
+Avg.Annual.Salary                     Avg.Annual.Salary 2.93841106
+Originator_C                               Originator_C 2.91345143
+Income.Per.Household               Income.Per.Household 2.58937744
+Average.House.Value                 Average.House.Value 2.49996511
+Active..60Days                           Active..60Days 2.41458606
+Active.Credit.Available         Active.Credit.Available 2.38815600
+Active.Percent.Revolving       Active.Percent.Revolving 2.19113159
+White.Population                       White.Population 2.16973109
+Black.Population                       Black.Population 2.11268189
+Avg.Monthly.Payment                 Avg.Monthly.Payment 2.04590624
+Asian.Population                       Asian.Population 2.02928662
+Hispanic.Population                 Hispanic.Population 2.01066640
+Median.Age.Male                         Median.Age.Male 1.86361396
+Indian.Population                     Indian.Population 1.85137601
+Employment                                   Employment 1.74343700
+Num.Charged.Off                         Num.Charged.Off 1.68470038
+Households.in.Zip.Code           Households.in.Zip.Code 1.59706146
+Other.Population                       Other.Population 1.49196963
+Persons.Per.Household             Persons.Per.Household 1.48087227
+Median.Age.Female                     Median.Age.Female 1.43427276
+Originator_A                               Originator_A 1.32407917
+Num.Credit.Inquiries               Num.Credit.Inquiries 1.32321304
+Years.in.Business                     Years.in.Business 1.31588381
+Hawaiian.Population                 Hawaiian.Population 1.13550561
+Annual.Payroll..000.               Annual.Payroll..000. 1.12051984
+Population.of.Zip.Code           Population.of.Zip.Code 1.09494002
+Median.Age                                   Median.Age 1.06230459
+Percent.Active.Current           Percent.Active.Current 0.98927857
+Male.Population                         Male.Population 0.90543348
+First.Quarter.Payroll..000. First.Quarter.Payroll..000. 0.89838228
+Property.Ownership_Lease       Property.Ownership_Lease 0.25289990
+Industry.Main.Cat_Ser             Industry.Main.Cat_Ser 0.24080184
+Num.of.Closed.Tax.Liens         Num.of.Closed.Tax.Liens 0.15093261
+Region_Northeast                       Region_Northeast 0.13183534
+Region_Midwest                           Region_Midwest 0.08372364
+Num.of.Closed.Judgments         Num.of.Closed.Judgments 0.07752800
+Region_West                                 Region_West 0.01886599
+Ever.Bankrupt._yes                   Ever.Bankrupt._yes 0.00000000
+```
+
+Showing the summary of the boosted tree, we see the rank of importance of variables.
+
+The MSE for testing set is 359,925.2
+
+## Conclusion
+
+In this example, Random Forest shows the best performance in predicting. Besides, it also has the advantage of avoiding overfitting.
