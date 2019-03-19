@@ -2,7 +2,7 @@
 description: >-
   This is the final project in DSO_530 Applied Modern Statistical Learning
   Methods class by professor Robertas Gabrys, USC. I completed this project with
-  some classmates
+  four other classmates.
 ---
 
 # Decision Tree Ensembles in R
@@ -300,4 +300,4 @@ The MSE for testing set is 359,925.2
 
 ## Conclusion
 
-In this example, Random Forest shows the best performance in predicting. Besides, it also has the advantage of avoiding overfitting.
+In this example, Random Forest not only shows the best performance in predicting, but also has the advantage of avoiding overfitting. However, comparing with the the simple OLS regression, we notice Random Forest still loses in the predicting game. A lot of times, a more complicated model does not guarantee a better result.
