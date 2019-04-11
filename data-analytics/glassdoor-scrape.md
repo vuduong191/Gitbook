@@ -23,7 +23,7 @@ In this task, I used Beautiful Soup, a Python library for pulling data out of HT
 ```
 https://www.glassdoor.com/Reviews/The-Wonderful-Company-Reviews-E1005987_P2.htm?sort.sortType=RD&sort.ascending=false
 ```
-There're two thing we can observe from the url of a rating page
+There're two things we can observe from the url of a rating page
 - There's an element that specifies page number in the url
 - There're parameters for sorting (it's currently sorted by date from the newest to the oldest)
 
