@@ -1,6 +1,6 @@
 # KNN vs Logistic Regression in R
 
-![Cover](../.gitbook/assets/cover%20%281%29.jpg)
+![Cover](../.gitbook/assets/cover%20%282%29.jpg)
 
 \_This image may not relate to this project at all. Source: www.childcarseats.com.au. All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/KNN01)
 

@@ -11,6 +11,7 @@
 * [Model Selection in R](data-analytics/model-selection.md)
 * [KNN vs Logistic Regression in R](data-analytics/knn-vs-logistic-regression-in-r.md)
 * [Decision Tree Ensembles in R](data-analytics/decision-tree-ensembles.md)
+* [Use Benford's Law To Detect Fraud - Python](data-analytics/use-benfords-law-to-detect-fraud-python.md)
 
 ## Web Development
 
