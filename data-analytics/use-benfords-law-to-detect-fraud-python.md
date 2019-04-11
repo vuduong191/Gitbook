@@ -8,6 +8,8 @@ description: >-
 
 ### Benford's Law
 
+_All images, data and Python Codes can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/P02)_  
+
 The theory of Benford’s Law is a non-intuitive fact that has been around since 1881 but wasn’t applied to financial data until 1989 by Mark Nigrini. The theory is that first digit of many measurements is not uniformly distributed, and low-digit numbers 1, 2, and 3 show up more frequently than higher numbers 4 through 9. The chart below represents the percentage of frequency the first digit should show up in a population:
 
 ![Benford's Law](../resources/P02/images/dist.png)
@@ -54,7 +56,7 @@ CN_stat.columns=['Cardnum', 'BenFordStat']
 CN_stat.head(10)
 
 Out[]:
-Index Cardnum	BenFordStat
+Index   Cardnum	  BenFordStat
 0	5142110002	1.010214
 1	5142110081	1.025562
 2	5142110313	1.007152
@@ -84,8 +86,8 @@ I notice this merchandizer with the highest unusualness score: infinity
 
 Now look at the details of this merchandizer
 
-```python
-Index	Recnum	Cardnum	Date	Amount	First_Digit
+```
+Index	Recnum	Cardnum 	Date          Amount	First_Digit
 57	58	5142197563	2010-01-02	30.00	3
 170	171	5142197563	2010-01-03	30.00	3
 1129	1130	5142197563	2010-01-07	30.00	3
