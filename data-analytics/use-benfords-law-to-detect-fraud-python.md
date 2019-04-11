@@ -26,11 +26,11 @@ According to Benford's Law, low-digit numbers (1,2) acount for about 47.7%. We w
 
 Besides, we need to use a smoothing formula to drive the ratios closer to 1 in cases when the group is too small. For a group with a small size of members, the distribution is not representative. By making the ratios closer to 1 for such a group, we avoid highlighting these groups in the final step.
 
-### Step 1: Get the first digit of transaction amounts. 
+#### Step 1: Get the first digit of transaction amounts. 
 
 Since the amount column is of dollar currency, by multiplying all values by 100, we’re confident that the first digit is non-zero. We doublechecked and confirmed that.
 
-### Step 2: Define a function that measures unusualness and apply smoothing function
+#### Step 2: Define a function that measures unusualness and apply smoothing function
 
 ```python
 def benfordstat(series, n_mid=15, c=3):
@@ -44,7 +44,7 @@ def benfordstat(series, n_mid=15, c=3):
 ```
 'stat' in this code represent the level of unusualness, the higher the 'stat' the more alarming.
 
-### Step 3: Group the data by Merchnum and Cardnum and apply the custom formula on ‘First_Digit’ columns.
+#### Step 3: Group the data by Merchnum and Cardnum and apply the custom formula on ‘First_Digit’ columns.
 
 Below is the example for Cardnum
 ```python
@@ -54,7 +54,7 @@ CN_stat.columns=['Cardnum', 'BenFordStat']
 CN_stat.head(10)
 
 Out[]:
-Cardnum	BenFordStat
+Index Cardnum	BenFordStat
 0	5142110002	1.010214
 1	5142110081	1.025562
 2	5142110313	1.007152
@@ -68,13 +68,13 @@ Cardnum	BenFordStat
 ```
 
 
-### Step 5: Sort values by the unusualness scores and get 40 records with the highest scores.
+#### Step 5: Sort values by the unusualness scores and get 40 records with the highest scores.
 ```python
 CN_stat.sort_values(by = 'BenFordStat', ascending = False).head(40).to_csv('Benford_Cardnum.csv')
 MN_stat.sort_values(by = 'BenFordStat', ascending = False).head(40).to_csv('Benford_Merchnum.csv')
 ```
 
-### Doublecheck
+#### Doublecheck
 
 I notice this merchandizer with the highest unusualness score: infinity
 ```python
@@ -85,7 +85,7 @@ I notice this merchandizer with the highest unusualness score: infinity
 Now look at the details of this merchandizer
 
 ```python
-	Recnum	Cardnum	Date	Amount	First_Digit
+Index	Recnum	Cardnum	Date	Amount	First_Digit
 57	58	5142197563	2010-01-02	30.00	3
 170	171	5142197563	2010-01-03	30.00	3
 1129	1130	5142197563	2010-01-07	30.00	3
