@@ -9,7 +9,7 @@ description: >-
 
 ![Cover](../.gitbook/assets/cover%20%281%29.jpg)
 
-\_This image may not relate to this project at all. Source: www.paisabazaar.com All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/DT01)
+_This image may not relate to this project at all. Source: www.paisabazaar.com All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/DT01)_
 
 Decision Tree has been around for a long time and also known to suffer from bias and variance. Ensemble methods, which combines several trees, are among the most popular solutions. We will try various methods such as bagging, random forest, and boosting in this example.
 

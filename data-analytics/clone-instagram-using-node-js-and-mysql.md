@@ -9,7 +9,7 @@ description: >-
 
 ![Cover](../.gitbook/assets/insta_clone.jpg)
 
-_This image may not relate to this project at all. Source: www.appoets.com._ All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/SQ01)
+_This image may not relate to this project at all. Source: www.appoets.com. All images, data and R Script can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/SQ01)_
 
 > C'mon! I can't clone Instagram. I dealt with MySQL a lot of time in my career, but when I knew how we can set up MySQL server on Node JS, I got very excited and went ahead to create this app.
 

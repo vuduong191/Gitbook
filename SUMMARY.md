@@ -12,7 +12,7 @@
 * [KNN vs Logistic Regression in R](data-analytics/knn-vs-logistic-regression-in-r.md)
 * [Decision Tree Ensembles in R](data-analytics/decision-tree-ensembles.md)
 * [Use Benford's Law To Detect Fraud - Python](data-analytics/use-benfords-law-to-detect-fraud-python.md)
-* [Scrape Glassdoor Reviews - Python](data-analytics/untitled.md)
+* [Scrape Glassdoor Reviews - Python](data-analytics/glassdoor-scrape.md)
 
 ## Web Development
 
