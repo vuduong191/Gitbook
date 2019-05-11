@@ -7,7 +7,7 @@ description: >-
 
 # Complete Data Set on Coffee Shop Footprints in Los Angeles County
 
-The data set can be found [here](https://github.com/vuduong191/Gitbook/tree/7cad402e6d11613f338cc9aaa8f966471da595f1/resources/Yelp01/data/README.md), you can also find a shape file for easy visualization on Tableau. Note: the data set was acquired in April 2019.
+The data set can be found [here](https://github.com/vuduong191/Gitbook/tree/7cad402e6d11613f338cc9aaa8f966471da595f1/resources/Yelp01/data/README.md). The final data set is "coffee\_shop\_neighborhood\_April\_2019.csv" you can also find a shape file for easy visualization on Tableau. Note: the data set was acquired in April 2019.
 
 An example of usage of the shape file in Tableau:
 
@@ -77,7 +77,7 @@ I will overlay a grid-line on top of the LA County map, and pick the coordinates
 
 ![Grid](../.gitbook/assets/latlong.png)
 
-There are 10432 points in this grid, you have to use multiple API Keys to complete the task in one day because the free version allows maximum 5000 requests a day. The code can be found here.
+There are 10432 points in this grid, you have to use multiple API Keys to complete the task in one day because the free version allows maximum 5000 requests a day. The code can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/Yelp01/script/create_lat_long_list).
 
 After making 10432 requests, I get maximum 50 coffee shops located around each point. The most crowded area has about 500 coffee shops \(fewer than 1000, so we are relieved that we can catch them all\).
 
@@ -108,7 +108,7 @@ for file in os.listdir("./"):
             pass
 ```
 
-In this step I also do some cleaning activities. For example, cleaning the 'categories' str:
+In this step I also do some cleaning activities. For example, cleaning the 'categories' strings:
 
 From this:
 
@@ -122,11 +122,11 @@ To this:
 "['coffeeroasteries', 'coffee', 'breakfast_brunch']"
 ```
 
-I also remove foodtrucks and businesses that do not sell coffee \(not having any category related to coffee\). The data achieved from this step can be found here, "AllCoffeeFinalApril.csv"
+I also remove food trucks and businesses that do not sell coffee \(not having any category related to coffee\). The data achieved from this step can be found here, "AllCoffeeFinalApril.csv"
 
 ## AirBnB GeoJson
 
-The coffee shops we found above include one that are outside of LA County, I use AirBnB GeoJSON file of neighbourhoods to pick only the one inside the borders. I also assign a neighborhood name to each coffee shop, which is very useful for further analysis. The GeoJSON file is available [here](http://insideairbnb.com/get-the-data.html).
+The coffee shops we found above include one that are outside of LA County, I use AirBnB GeoJSON file of neighborhoods to pick only the one inside the borders. I also assign a neighborhood name to each coffee shop, which is very useful for further analysis. The GeoJSON file is available [here](http://insideairbnb.com/get-the-data.html).
 
 ![Raw List](../.gitbook/assets/rawlist.png)
 
@@ -134,5 +134,5 @@ Looking at this visualization, it's apparent that many coffee shops do not belon
 
 ![Fine List](../.gitbook/assets/finelist.png)
 
-This is what I have then. Details can be found [here](https://github.com/vuduong191/Gitbook/tree/7cad402e6d11613f338cc9aaa8f966471da595f1/resources/Yelp01/script/README.md), "Merge with Airbnb GeoJson.ipynb"
+This is what I have then. Details can be found [here,](https://github.com/vuduong191/Gitbook/tree/master/resources/Yelp01/script) "Merge with Airbnb GeoJson.ipynb"
 
