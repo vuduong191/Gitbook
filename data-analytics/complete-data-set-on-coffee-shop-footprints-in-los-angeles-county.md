@@ -7,6 +7,11 @@ description: >-
 
 # Complete Data Set on Coffee Shop Footprints in Los Angeles County
 
+The data set can be found [here](../resources/Yelp01/data), you can also find a shape file for easy visualization on Tableau. Note: the data set was acquired in April 2019.
+
+An example of usage of the shape file in Tableau:
+![Number of Coffee Shops in Neighborhoods in LA](../resources/Yelp01/images/heatmap.png)
+
 #### Yelp Fusion API
 
 The Yelp Fusion API allows you to get the best local content and user reviews from millions of businesses across 32 countries. To get the  listings in a geographical area, we need to use Business Search endpoint, which allows search for businesses by keyword, category, location, price level, etc.
@@ -88,9 +93,40 @@ The next step is to pick out the coordinates, around which there are more than 5
 
 For example, for coordinates having 62 coffee shops, I need to make 2 requests. The first request has been made. I will use "offset" parameter to get the rest. Because we have limit=50, that means we got coffee shops 1-50 in the loop above, so give it offset=51 and we will get 51-62. The same thought process applies for a higher number of count. The code can be found here.
 
-At this point, we will have thousands of Json files returned from all requests we made above. We need to make a data frame out of each file, join them, and remove duplicate.
+At this point, I have thousands of Json files returned from all requests made above. I need to make a data frame out of each file, join them, and remove duplicates. When a json file is loaded using json.load(), the result's class type is "dict". To construct DataFrame from dict, I use classmethod DataFrame.from_dict.
+
+```python
+for file in os.listdir("./"):
+        print(file)
+        try:
+            with open(file) as json_file:  
+                response = json.load(json_file)
+            df = pd.DataFrame.from_dict(response['businesses'])
+            alldata=pd.concat([alldata,df], ignore_index=True)
+        except Exception:
+            pass
+```
+In this step I also do some cleaning activities. For example, cleaning the 'categories' str:
+
+From this:
+```python
+"[{'alias': 'coffeeroasteries', 'title': 'Coffee Roasteries'}, {'alias': 'coffee', 'title': 'Coffee & Tea'}, {'alias': 'breakfast_brunch', 'title': 'Breakfast & Brunch'}]"
+```
+To this:
+```python
+"['coffeeroasteries', 'coffee', 'breakfast_brunch']"
+```
+I also remove foodtrucks and businesses that do not sell coffee (not having any category related to coffee). The data achieved from this step can be found here, "AllCoffeeFinalApril.csv"
+
+#### AirBnB GeoJson 
+
+The coffee shops we found above include one that are outside of LA County, I use AirBnB GeoJSON file of neighbourhoods to pick only the one inside the borders. I also assign a neighborhood name to each coffee shop, which is very useful for further analysis. The GeoJSON file is available [here](http://insideairbnb.com/get-the-data.html).
 
 
+![Raw List](../resources/Yelp01/images/rawlist.png)
 
+Looking at this visualization, it's apparent that many coffee shops do not belong to LA County. I need to get rids of them by joining the data set with the GeoJSON file.
 
+![Fine List](../resources/Yelp01/images/finelist.png)
 
+This is what I have then. Details can be found [here](../resources/Yelp01/script), "Merge with Airbnb GeoJson.ipynb"
