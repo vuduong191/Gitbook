@@ -69,6 +69,8 @@ A request call can only return maximum 50 businesses. By adjusting the "offset" 
 
 I will overlay a grid-line on top of the LA County map, and pick the coordinates \(latitude, longitude\) of intersections and use these as location parameters in the API request. I make sure the grid is fine enough so any two nearby intersections are less than 1 mile away. Then I will find make API requests to find all the coffee shops around each of these points. I made the radius parameter = 1700 meters \(larger than 1 mile\) to guarantee no coffee shop is missed out.
 
+![Grid](../resources/Yelp01/images/latlong.png)
+
 There are 10432 points in this grid, you have to use multiple API Keys to complete the task in one day because the free version allows maximum 5000 requests a day.
 
 After making 10432 requests, we get information of maximum 50 coffee around each point. The most crowded area has about 500 coffee shops \(fewer than 1000, so we are relieved we can catch them all\). 
