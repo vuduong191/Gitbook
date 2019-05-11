@@ -69,11 +69,26 @@ A request call can only return maximum 50 businesses. By adjusting the "offset" 
 
 I will overlay a grid-line on top of the LA County map, and pick the coordinates \(latitude, longitude\) of intersections and use these as location parameters in the API request. I make sure the grid is fine enough so any two nearby intersections are less than 1 mile away. Then I will find make API requests to find all the coffee shops around each of these points. I made the radius parameter = 1700 meters \(larger than 1 mile\) to guarantee no coffee shop is missed out.
 
-There are 10432 points in this grid, you have to use multiple API Keys to complete the task in one day because the free version allows maximum 5000 requests a day.
+There are 10432 points in this grid, you have to use multiple API Keys to complete the task in one day because the free version allows maximum 5000 requests a day. The code can be found here.
 
-After making 10432 requests, we get information of maximum 50 coffee around each point. The most crowded area has about 500 coffee shops \(fewer than 1000, so we are relieved we can catch them all\). 
+After making 10432 requests, I get maximum 50 coffee shops located around each point. The most crowded area has about 500 coffee shops \(fewer than 1000, so we are relieved that we can catch them all\). 
 
-The next step is to pick out the coordinates, around which there are more than 50 coffee shops. We will use "offset" parameter to get the rest around these points. Because we have limit=50, that means we got coffee shops 1-50 in the loop above, so give it offset=51 and we will get 51-100, and so on.
+The next step is to pick out the coordinates, around which there are more than 50 coffee shops. I save this list as "latlongover50.csv". It looks like this:
+
+```text
+	index	lat	long	Count	no_of_queries
+0	35	33.705431	-118.002873	62	2
+1	36	33.705431	-117.989117	57	2
+2	37	33.705431	-117.975362	53	2
+3	38	33.705431	-117.961606	84	2
+4	39	33.705431	-117.947851	67	2
+```
+
+For example, for coordinates having 62 coffee shops, I need to make 2 requests. The first request has been made. I will use "offset" parameter to get the rest. Because we have limit=50, that means we got coffee shops 1-50 in the loop above, so give it offset=51 and we will get 51-62. The same thought process applies for a higher number of count. The code can be found here.
+
+At this point, we will have thousands of Json files returned from all requests we made above. We need to make a data frame out of each file, join them, and remove duplicate.
+
+
 
 
 
