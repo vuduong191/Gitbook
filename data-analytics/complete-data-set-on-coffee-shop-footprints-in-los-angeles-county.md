@@ -1,17 +1,19 @@
 ---
 description: >-
-  In a data competition held by BCG Gamma, my team needs a complete data set of
-  coffee shops in LA County. We used Yelp APIs to acquire this, and I think this
-  data may be helpful to some of you.
+  In a data competition held by BCG Gamma, my team needs a complete database of
+  coffee shops in LA County. I used Yelp APIs to acquire this, and I think some
+  of you my find this useful.
 ---
 
-# Complete Data Set on Coffee Shop Footprints in Los Angeles County
+# Complete Data Set of Coffee Shops in Los Angeles County
 
-The data set can be found [here](https://github.com/vuduong191/Gitbook/tree/7cad402e6d11613f338cc9aaa8f966471da595f1/resources/Yelp01/data/README.md). The final data set is "coffee\_shop\_neighborhood\_April\_2019.csv" you can also find a shape file for easy visualization on Tableau. Note: the data set was acquired in April 2019.
+The data set can be found [here](https://github.com/vuduong191/Gitbook/tree/master/resources/Yelp01/data) under the name "coffee\_shop\_neighborhood\_April\_2019.csv" ; you can also find a shape file for easy visualization on Tableau. Note: the data set was acquired in April 2019.
 
 An example of usage of the shape file in Tableau:
 
 ![Number of Coffee Shops in Neighborhoods in LA](../.gitbook/assets/heatmap.png)
+
+**Below is the steps I took to get this data. If you want a fresh data set, you can follow these steps.**
 
 ## Yelp Fusion API
 
